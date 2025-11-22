@@ -1,7 +1,23 @@
 import { Routes } from '@angular/router';
-import { Home } from './componenets/home/home';
+import { Home } from './home/home';
+import { FoodsComponent } from './components/foods/foods.component';
+import { FoodComponent } from './components/food/food.component';
 
 export const routes: Routes = [
-     { path: 'home', component: Home }
+
+  {
+    path: '',
+    component: Home
+  },
+
+  {
+    path: 'foods',
+    component: FoodsComponent
+  },
+
+  {
+    path: 'foods/:id',
+    component: FoodComponent
+  }
 
 ];

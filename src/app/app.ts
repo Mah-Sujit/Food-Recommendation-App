@@ -1,13 +1,22 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FoodData } from './services/food-data';
 
-
-@Component({
+@Component({ 
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent],
+  providers: [FoodData],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('Food Recommendations');
-}
+  protected title = 'foodFE';
+
+  constructor(private dataService: FoodData) { }
+
+  ngOnInit() {
+    this.dataService.populateReviews();
+  }
+} 
