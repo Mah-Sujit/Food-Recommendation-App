@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ActivatedRoute,} from '@angular/router';
 import {FoodData } from '../../services/food-data';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,7 @@ import { AuthService } from '@auth0/auth0-angular';
   styleUrls: ['./food.component.css'],
 })
 export class FoodComponent {
+  food: any;
   food_list: any = [];;
   food_lat: any;
   food_lng: any; 
@@ -29,7 +30,7 @@ export class FoodComponent {
   temperatureColour: any;
   reviewForm: any;
 
-  constructor (private foodData: FoodData, 
+  constructor (@Inject(FoodData) private foodData: FoodData, 
     private route: ActivatedRoute, 
     private formBuilder: FormBuilder,
     protected authService: AuthService ) {} 
