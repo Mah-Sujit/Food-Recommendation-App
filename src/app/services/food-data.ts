@@ -48,53 +48,174 @@ export class FoodData {
 
   // ------------------ LIST FOODS (flattened shape) ------------------
   getFoods(page: number) {
-    const pageStart = (page - 1) * this.pageSize;
-    const pageEnd = pageStart + this.pageSize;
+  const pageStart = (page - 1) * this.pageSize;
+  const pageEnd = pageStart + this.pageSize;
 
-    return jsonData.slice(pageStart, pageEnd).map((doc: any) => {
-      const biz = doc.Businesses[0];
-
-      return {
-        id: doc.FHRSID,
-        name: biz.BusinessName,
-        town: biz.Location.Address.City,
-        rating: biz.Ratings?.[0]?.Value ?? 0,
-        lat: biz.Location.Coordinates.Latitude,
-        lng: biz.Location.Coordinates.Longitude,
-        reviews: (doc.CustomerReviews || []).map((r: any) => ({
-          username: r.username,
-          comment: r.comment,
-          stars: r.star
-        }))
-      };
-    });
-  }
-
-  getLastPageNumber() {
-    return Math.ceil(jsonData.length / this.pageSize);
-  }
-
-  // ------------------ SINGLE FOOD BY ID (flattened) ------------------
-  getFood(id: any) {
-    const doc = jsonData.find((d: any) => d.FHRSID == id);
-    if (!doc) return null;
-
+  return jsonData.slice(pageStart, pageEnd).map((doc: any) => {
     const biz = doc.Businesses[0];
 
     return {
       id: doc.FHRSID,
+      
+      // --- BASIC DETAILS ---
       name: biz.BusinessName,
-      town: biz.Location.Address.City,
-      rating: biz.Ratings?.[0]?.Value ?? 0,
+      businessType: biz.BusinessType,
+      businessTypeId: biz.BusinessTypeID,
+      isFranchise: biz.IsFranchise,
+      employees: biz.NumberOfEmployees,
+
+      // --- PARENT COMPANY ---
+      parentCompany: {
+        companyName: biz.ParentCompany.CompanyName,
+        registrationNumber: biz.ParentCompany.RegistrationNumber,
+        branches: biz.ParentCompany.Branches
+      },
+
+      // --- LOCATION ---
+      address: {
+        street: biz.Location.Address.Street,
+        city: biz.Location.Address.City,
+        postcode: biz.Location.Address.Postcode,
+        country: biz.Location.Address.Country
+      },
+
+      authority: {
+        code: biz.Location.LocalAuthority.Code,
+        name: biz.Location.LocalAuthority.Name,
+        website: biz.Location.LocalAuthority.WebSite,
+        email: biz.Location.LocalAuthority.EmailAddress
+      },
+
       lat: biz.Location.Coordinates.Latitude,
       lng: biz.Location.Coordinates.Longitude,
+
+      // --- RATINGS ---
+      ratings: biz.Ratings.map((r: any) => ({
+        value: r.Value,
+        date: r.Date,
+        inspector: r.Inspector.Name,
+        notes: r.Notes
+      })),
+
+      // --- SCORE ---
+      scores: {
+        hygiene: biz.Scores.Hygiene,
+        structural: biz.Scores.Structural,
+        confidence: biz.Scores.ConfidenceInManagement,
+        auditDate: biz.Scores.LastAuditTimestamp
+      },
+
+      // --- CROSS REFERENCES ---
+      crossReferences: biz.CrossReferences.NearbyBusinesses.map((x: any) => ({
+        businessId: x.BusinessID,
+        name: x.BusinessName,
+        distance: x.DistanceMeters
+      })),
+
+      sameParentGroup: biz.CrossReferences.SameParentGroup,
+
+      // --- STATUS ---
+      schemeType: biz.SchemeType,
+      ratingPending: biz.NewRatingPending,
+      complianceStatus: biz.ComplianceStatus,
+
+      // --- REVIEWS ---
       reviews: (doc.CustomerReviews || []).map((r: any) => ({
+        id: r._id.$oid,
         username: r.username,
         comment: r.comment,
         stars: r.star
       }))
     };
+  });
+}
+
+
+  getLastPageNumber() {
+    return Math.ceil(jsonData.length / this.pageSize);
   }
+
+// ------------------ SINGLE FOOD BY ID (flattened) ------------------
+getFoodById(id: any) {
+  const doc = jsonData.find((d: any) => d.FHRSID == id);
+  if (!doc) return null;
+
+  const biz = doc.Businesses[0];
+
+  return {
+    id: doc.FHRSID,
+    
+    // --- BASIC DETAILS ---
+    name: biz.BusinessName,
+    businessType: biz.BusinessType,
+    businessTypeId: biz.BusinessTypeID,
+    isFranchise: biz.IsFranchise,
+    employees: biz.NumberOfEmployees,
+
+    // --- PARENT COMPANY ---
+    parentCompany: {
+      companyName: biz.ParentCompany.CompanyName,
+      registrationNumber: biz.ParentCompany.RegistrationNumber,
+      branches: biz.ParentCompany.Branches
+    },
+
+    // --- LOCATION ---
+    address: {
+      street: biz.Location.Address.Street,
+      city: biz.Location.Address.City,
+      postcode: biz.Location.Address.Postcode,
+      country: biz.Location.Address.Country
+    },
+
+    authority: {
+      code: biz.Location.LocalAuthority.Code,
+      name: biz.Location.LocalAuthority.Name,
+      website: biz.Location.LocalAuthority.WebSite,
+      email: biz.Location.LocalAuthority.EmailAddress
+    },
+
+    lat: biz.Location.Coordinates.Latitude,
+    lng: biz.Location.Coordinates.Longitude,
+
+    // --- RATINGS ---
+    ratings: biz.Ratings.map((r: any) => ({
+      value: r.Value,
+      date: r.Date,
+      inspector: r.Inspector.Name,
+      notes: r.Notes
+    })),
+
+    // --- SCORE ---
+    scores: {
+      hygiene: biz.Scores.Hygiene,
+      structural: biz.Scores.Structural,
+      confidence: biz.Scores.ConfidenceInManagement,
+      auditDate: biz.Scores.LastAuditTimestamp
+    },
+
+    // --- CROSS REFERENCES ---
+    crossReferences: biz.CrossReferences.NearbyBusinesses.map((x: any) => ({
+      businessId: x.BusinessID,
+      name: x.BusinessName,
+      distance: x.DistanceMeters
+    })),
+
+    sameParentGroup: biz.CrossReferences.SameParentGroup,
+
+    // --- STATUS ---
+    schemeType: biz.SchemeType,
+    ratingPending: biz.NewRatingPending,
+    complianceStatus: biz.ComplianceStatus,
+
+    // --- REVIEWS ---
+    reviews: (doc.CustomerReviews || []).map((r: any) => ({
+      id: r._id.$oid,
+      username: r.username,
+      comment: r.comment,
+      stars: r.star
+    }))
+  };
+}
 
   // ------------------ FE14: Lorem Ipsum API ------------------
   getLoremIpsum(paragraphs: number): Observable<any> {

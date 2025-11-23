@@ -2,17 +2,17 @@
   <div class="row">
     <div class="col-sm-12">
 
-      @for (food of food_list; track food.name) {
+      @for (food of food_list; track food.id) {
         <div class="card text-white bg-primary mb-3"
              style="cursor: pointer;"
-             [routerLink]="['/foods', food._id.$oid]">
+             [routerLink]="['/foods', food.id]">
 
           <div class="card-header">
             {{ food.name }}
           </div>
 
           <div class="card-body">
-            This food is popular in {{ food.region }}
+            This food is popular in {{ food.town }}
           </div>
 
           <div class="card-footer">
