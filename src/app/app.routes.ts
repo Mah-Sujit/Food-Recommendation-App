@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
-import { FoodsComponent } from './components/foods/foods.component';
-import { FoodComponent } from './components/food/food.component';
+import { Foods } from './foods/foods';
+import { Food } from './foods/food/food'; 
 
 export const routes: Routes = [
 
@@ -12,12 +12,12 @@ export const routes: Routes = [
 
   {
     path: 'foods',
-    component: FoodsComponent
+    component: Foods
   },
 
   {
-    path: 'foods/:id',
-    component: FoodComponent
+    path: 'food/:id',
+    component: Food
   }
 
 ];

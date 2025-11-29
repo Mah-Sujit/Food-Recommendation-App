@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './navbar/navbar.component';
+import { Navbar } from './navbar/navbar';
+import { Foods } from './foods/foods';      
 import { FoodData } from './services/food-data';
 
-@Component({ 
+@Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, Navbar],
   providers: [FoodData],
   templateUrl: './app.html',
   styleUrl: './app.css'
@@ -14,9 +15,9 @@ import { FoodData } from './services/food-data';
 export class App {
   protected title = 'foodFE';
 
-  constructor(private dataService: FoodData) { }
+  constructor(private dataService: FoodData) {}
 
   ngOnInit() {
     this.dataService.populateReviews();
   }
-} 
+}

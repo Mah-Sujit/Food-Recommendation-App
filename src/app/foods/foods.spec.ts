@@ -1,6 +1,6 @@
-/// <reference types="jasmine" />
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FoodsComponent } from './foods.component';
+import { FoodsComponent } from './foods';
 
 describe('FoodsComponent', () => {
   let component: FoodsComponent;
