@@ -18,11 +18,9 @@ export class WebServices {
       page + '&ps=' + this.pageSize
       );
   }
-  getfood(id: any){
-    return this.http.get<any>(
-      'http://127.0.0.1:5001/food /'+ id
-    );
-  }
+  getfood(id: any) {
+  return this.http.get<any>(`http://127.0.0.1:5001/food/${id}`);
+}
 
   getLoremIpsum(paragraphs: number) : Observable<any> {
     let API_key = "vv+za+RgHsTXo8vvvL+nlw==9RyEkIgssHV93UmE";
@@ -34,7 +32,7 @@ export class WebServices {
 
   getReviews(id: any){
     return this.http.get<any>(
-      'http://127.0.0.1:5001/business/'+ id + '/reviews'
+      'http://127.0.0.1:5001/food/${id}/reviews'
     );
   }
 
@@ -45,7 +43,7 @@ export class WebServices {
     postData.append("stars", review.stars);
 
     return this.http.post<any>(
-        'http://127.0.0.1:5001/business/' + id + '/reviews',
+        'http://127.0.0.1:5001/food/${id}/reviews',
         postData);
 }
 }

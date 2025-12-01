@@ -5,7 +5,7 @@
       @for (food of food_list; track food._id.$oid) {
         <div class="card text-white bg-primary mb-3"
              style="cursor: pointer;"
-             [routerLink]="['/foods', food.id]">
+             [routerLink]="['/food', food._id]">
           <div class="card-header">
             {{ food.name }}
           </div>

@@ -14,32 +14,6 @@ export class FoodData {
   
   constructor(private http: HttpClient ){ }
 
-  getFoods(page: number) {
-    let pageStart = (page - 1) * this.pageSize;
-    let pageEnd = pageStart + this.pageSize; 
-    return jsonData.slice(pageStart,pageEnd);
-  }
-  
-  getLastPageNumber(){
-    return Math.ceil(jsonData.length / this.pageSize);
-  }
-
-  getfood(id: any){
-    let dataToReturn: any = [];
-    jsonData.forEach(function(food){
-      if (food._id.$oid == id){
-        dataToReturn.push(food);
-      }
-    })
-    return dataToReturn;
-  }
-  getLoremIpsum(paragraphs: number) : Observable<any> {
-    let API_key = "vv+za+RgHsTXo8vvvL+nlw==9RyEkIgssHV93UmE";
-    return this.http.get<any>(
-      'https://api.api-ninjas.com/v1/' 
-      + 'loremipsum?paragraphs=' + paragraphs,{headers:{'X-Api-key': API_key}}
-    )
-  }
   populateReviews() {
   let loremIpsum: string = "";
       let dummyReview: any = {};
@@ -66,6 +40,32 @@ export class FoodData {
         })
       }
 
+  getFoods(page: number) {
+    let pageStart = (page - 1) * this.pageSize;
+    let pageEnd = pageStart + this.pageSize; 
+    return jsonData.slice(pageStart,pageEnd);
+  }
+  
+  getLastPageNumber(){
+    return Math.ceil(jsonData.length / this.pageSize);
+  }
+
+  getfood(id: any){
+    let dataToReturn: any = [];
+    jsonData.forEach(function(food){
+      if (food._id.$oid == id){
+        dataToReturn.push(food);
+      }
+    })
+    return dataToReturn;
+  }
+  getLoremIpsum(paragraphs: number) : Observable<any> {
+    let API_key = "DtUmNNozJWdZQaT2ernjMw==T0rWimQybxCZTdWV";
+    return this.http.get<any>(
+      'https://api.api-ninjas.com/v1/' 
+      + 'loremipsum?paragraphs=' + paragraphs,{headers:{'X-Api-key': API_key}}
+    )
+  }
 getCurrentWeather(lat: number, lon: number) {
   const API_KEY = '3d2e11a64980bf4bdb6eec72fba8aada';
 
@@ -73,6 +73,7 @@ getCurrentWeather(lat: number, lon: number) {
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
   );
 }
+
 getTemperatureColour(temp: number) {
   if (temp <= 5) return '#0000ff';      // Blue
   if (temp <= 12) return '#00ff00';     // Green
@@ -85,7 +86,7 @@ postReview(id: any, review: any) {
   let newReview = { 
     username: review.username, 
     review: review.comment, 
-    star: review.stars 
+    stars: review.stars 
   }; 
 
   jsonData.forEach(function(business) { 
