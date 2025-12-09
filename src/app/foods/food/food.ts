@@ -7,6 +7,18 @@ import { AuthService } from '@auth0/auth0-angular';
 import { FoodData } from '../../services/food-data';
 import { WebServices } from '../../services/web-service';
 
+export interface Food {
+  _id: string;
+  name: string;
+  rating: number;
+  city?: string;
+  country?: string;
+  image?: string;
+  lat?: number;
+  lng?: number;
+}
+
+
 @Component({
   selector: 'app-food',
   standalone: true,
@@ -15,6 +27,7 @@ import { WebServices } from '../../services/web-service';
   templateUrl: './food.html',
   styleUrls: ['./food.css'],
 })
+
 export class Food {
 
   food_list: any = [];
@@ -30,8 +43,8 @@ export class Food {
   temperature: number = 0;
   temperatureColour: string = '';
   weather: string = '';
-
   reviewForm: any;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -53,15 +66,13 @@ export class Food {
 
     // GET SINGLE FOOD DOCUMENT
     this.webService.getfood(id).subscribe((food: any) => {
-      console.log("FOOD RESPONSE:", food);
-
       this.food_list = [food];
 
       // CORRECT STRUCTURE (your MongoDB)
-      this.food_lat = food.lat;
-      this.food_lng = food.lng;
+        this.food_lat = food.Location.Coordinates.Latitude;
+        this.food_lng = food.Location.Coordinates.Longitude;
 
-      this.reviews_list = food.reviews || [];
+      this.reviews_list = food.CustomerReviews || [];
 
       // Google Map settings
       this.map_options = {
@@ -103,8 +114,8 @@ export class Food {
       this.reviewForm.reset();
 
       // Refresh food to reload reviews
-      this.webService.getfood(id).subscribe((reviews: any) => {
-        this.reviews_list = reviews;
+      this.webService.getfood(id).subscribe((food: any) => {
+        this.reviews_list = food.CustomerReviews;
       });
     });
   }

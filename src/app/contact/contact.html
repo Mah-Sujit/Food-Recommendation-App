@@ -1,4 +1,63 @@
-<div class="text-center mt-4">
-  <h1>Contact Us</h1>
-  <p>Email: info@food.com</p>
+<div class="contact-page">
+  <div class="contact-card">
+
+    <h2 class="contact-title">Get in touch with us</h2>
+    <p class="contact-subtitle">
+      Looking for support? Visit our Help Centre.
+    </p>
+
+    <form (ngSubmit)="submitForm()">
+
+      <div class="form-grid">
+
+        <input type="text" placeholder="First name" [(ngModel)]="form.firstName" name="firstName">
+        <input type="text" placeholder="Surname" [(ngModel)]="form.lastName" name="lastName">
+
+        <input type="email" class="form-full" placeholder="Work email" [(ngModel)]="form.email" name="email">
+
+        <input type="tel" placeholder="Phone number" [(ngModel)]="form.phone" name="phone">
+        <input type="text" placeholder="Company name" [(ngModel)]="form.company" name="company">
+
+        <select [(ngModel)]="form.country" name="country">
+          <option value="">Country</option>
+          <option>United Kingdom</option>
+          <option>United States</option>
+          <option>India</option>
+        </select>
+
+        <select [(ngModel)]="form.industry" name="industry">
+          <option value="">Industry</option>
+          <option>Technology</option>
+          <option>Food & Beverage</option>
+          <option>Retail</option>
+        </select>
+
+        <select class="form-full" [(ngModel)]="form.employees" name="employees">
+          <option value="">Number of employees</option>
+          <option>1–20</option>
+          <option>21–250</option>
+          <option>250+</option>
+        </select>
+
+        <select class="form-full" [(ngModel)]="form.usage" name="usage">
+          <option value="">Usage case</option>
+          <option>Business travel</option>
+          <option>Meal delivery</option>
+          <option>Commute</option>
+        </select>
+
+        <textarea class="form-full" placeholder="How can we help?"
+          [(ngModel)]="form.message" name="message"></textarea>
+
+      </div>
+
+      <button type="submit" class="submit-btn">Submit</button>
+
+    </form>
+
+    <p class="policy-text">
+      By tapping Submit, you agree to our Terms and Conditions and Privacy Policy.
+    </p>
+
+  </div>
 </div>

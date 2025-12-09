@@ -1,0 +1,104 @@
+/* Full page background */
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #007bff, #00d4ff);
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Signup Card */
+.signup-card {
+  width: 380px;
+  background: #fff;
+  padding: 35px 40px;
+  border-radius: 18px;
+  box-shadow: 0px 15px 40px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+/* Fade-in animation */
+.animate {
+  animation: fadeInUp 0.9s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Title */
+.signup-card h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+/* Input group */
+.input-group input {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #e4e4e4;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: 0.2s ease;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Signup button */
+.btn {
+  width: 100%;
+  padding: 14px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  background: #005fcc;
+  transform: translateY(-2px);
+}
+
+/* Login link */
+.login-link {
+  margin-top: 18px;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.login-link a {
+  color: #007bff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}

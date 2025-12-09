@@ -1,0 +1,64 @@
+/* src/app/login/login.css */
+.login-box {
+    max-width: 320px;
+    margin: 24px auto;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.field {
+    margin-bottom: 10px;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.field input {
+    width: 100%;
+    padding: 4px 6px;
+    box-sizing: border-box;
+}
+
+.buttons button {
+    margin-right: 8px;
+}
+
+.message {
+    margin-top: 10px;
+}
+/* FORGOT PASSWORD */
+.forgot-link {
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+.forgot-link a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 0.9rem;
+}
+
+.forgot-link a:hover {
+  text-decoration: underline;
+}
+
+/* SIGNUP LINK */
+.login-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
+
+.login-footer a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}

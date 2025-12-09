@@ -1,9 +1,13 @@
+/* --------------------------------------- */
+/* HERO SECTION FIXED (no more hidden content) */
+/* --------------------------------------- */
+
 /* Push hero below navbar */
 .hero-bg {
   margin-top: 90px;
-  height: 80vh;
-  background: url("https://images.unsplash.com/photo-1504674900247-0877df9cc836") 
-              center/cover no-repeat fixed;
+  min-height: 60vh;                 /* FIXED: prevents pushing content down */
+  background: url("https://images.unsplash.com/photo-1504674900247-0877df9cc836")
+    center/cover no-repeat fixed;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,10 +18,16 @@
   padding: 50px;
   width: 70%;
   backdrop-filter: blur(12px);
-  background: rgba(255,255,255,0.15);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   color: white;
+}
+
+/* Ensure whole page flows naturally */
+.home-page {
+  min-height: 100vh;   /* FIX: footer stays bottom, no floating */
+  display: block;
 }
 
 /* Search Box */
@@ -34,51 +44,66 @@
   border: none;
 }
 
-.search-btn {
-  padding: 12px 20px;
-  border-radius: 12px;
-}
+/* --------------------------------------- */
+/* HOW IT WORKS SECTION */
+/* --------------------------------------- */
 
-/* HOW IT WORKS */
 .how-card {
   padding: 30px;
   background: white;
   border-radius: 20px;
-  box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
 }
 
 .how-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .icon {
   font-size: 50px;
 }
 
-/* Preview Cards */
+/* --------------------------------------- */
+/* PREVIEW / RECOMMENDATION CARDS */
+/* --------------------------------------- */
+
 .preview-card {
+  opacity: 1 !important;
   border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
+  background: white;
 }
 
 .preview-card:hover {
   transform: translateY(-8px);
 }
 
-/* Animations */
+/* Always visible */
+.recommend-section {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* --------------------------------------- */
+/* ANIMATIONS */
+/* --------------------------------------- */
+
 .animate-fade {
   animation: fadeIn 1.3s ease;
 }
+
 .animate-up {
   animation: slideUp 1s ease;
 }
+
 .animate-slide {
   animation: slideIn 1s ease;
 }
 
+/* Keyframes */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -93,17 +118,21 @@
   from { transform: translateX(-40px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
 }
-/* FOOTER BASE */
+
+/* --------------------------------------- */
+/* FOOTER (WORKING + CLEAN) */
+/* --------------------------------------- */
+
 .footer {
   background: #202020;
   color: #e6e6e6;
   padding: 50px 20px;
-  margin-top: 100px;
+  margin-top: 50px;             /* FIXED: reasonable spacing */
   width: 100%;
   position: relative;
 }
 
-/* GRID */
+/* Footer Grid */
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -111,7 +140,7 @@
   animation: fadeIn 1.3s ease;
 }
 
-/* COLUMN TITLES */
+/* Footer Column Titles */
 .footer-col h4 {
   margin-bottom: 15px;
   font-size: 1.2rem;
@@ -128,7 +157,7 @@
   transform: translateX(5px);
 }
 
-/* LIST */
+/* Footer Lists */
 .footer-col ul {
   list-style: none;
   padding-left: 0;
@@ -151,7 +180,7 @@
   transform: translateX(5px);
 }
 
-/* COLLAPSIBLE */
+/* Mobile Footer Collapse */
 @media (max-width: 768px) {
   .footer-grid {
     grid-template-columns: 1fr;
@@ -166,7 +195,7 @@
   }
 }
 
-/* BACK TO TOP BUTTON */
+/* Back to Top Button */
 .back-to-top {
   position: absolute;
   right: 25px;
@@ -186,43 +215,18 @@
   background: #0093b6;
 }
 
-/* Show button on scroll */
 footer:hover .back-to-top {
   display: block;
 }
 
-/* FOOTER BOTTOM FLEX */
+/* Footer Bottom */
 .footer-bottom {
   text-align: center;
   margin-top: 30px;
   animation: fadeUp 1.2s ease;
 }
 
-.footer-bottom p {
-  margin-bottom: 10px;
-}
-
-.footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
-}
-
-.footer-links span:hover {
-  color: #00b4d8;
-}
-
-/* ANIMATIONS */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* Scroll Animate System */
 .scroll-animate {
   opacity: 0;
   transform: translateY(30px);
@@ -230,8 +234,6 @@ footer:hover .back-to-top {
 }
 
 .animate-show {
-  opacity: 1;
-  transform: translateY(0);
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
-
-

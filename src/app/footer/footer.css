@@ -1,53 +1,100 @@
-.footer {
-  background: #202020;
-  color: #e6e6e6;
-  padding: 50px 20px;
-  margin-top: 100px;
-  width: 100%;
+/* ================================
+   BASE FOOTER
+================================ */
+.food-footer {
+  background: linear-gradient(180deg, #1a1a1a, #0f0f0f);
+  color: #eaeaea;
+  padding: 60px 25px;
   position: relative;
+  margin-top: 120px;
 }
 
-/* GRID */
-.footer-grid {
+/* ================================
+   RESPONSIVE GRID
+================================ */
+.footer-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  animation: fadeIn 1.3s ease;
+  gap: 50px;
 }
 
-/* TITLES */
-.footer-col h4 {
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================
+   BRAND COLUMN
+================================ */
+.footer-logo {
+  font-size: 1.8rem;
   margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.footer-desc {
+  font-size: 0.95rem;
+  color: #bfbfbf;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Social Icons */
+.footer-social i {
+  font-size: 1.3rem;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.footer-social i:hover {
+  color: #00b4d8;
+  transform: translateY(-3px);
+}
+
+/* ================================
+   SECTION TITLES
+================================ */
+.footer-col h4 {
   font-size: 1.2rem;
-  color: #fff;
+  margin-bottom: 12px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 10px;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
 
 .footer-col h4:hover {
   color: #00b4d8;
-  transform: translateX(5px);
+  transform: translateX(6px);
 }
 
-/* LISTS */
+/* ================================
+   LISTS
+================================ */
 .footer-col ul {
   list-style: none;
   padding-left: 0;
-  max-height: 500px;
+  max-height: 600px;
   overflow: hidden;
-  transition: 0.4s ease;
+  transition: max-height 0.4s ease;
 }
 
 .footer-col ul li {
-  margin: 8px 0;
-  cursor: pointer;
-  transition: 0.3s;
+  margin: 7px 0;
   display: flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .footer-col ul li:hover {
@@ -55,66 +102,70 @@
   transform: translateX(5px);
 }
 
-/* COLLAPSIBLE MOBILE */
-@media (max-width: 768px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-
+/* Mobile collapse */
+@media (max-width: 600px) {
   .footer-col ul {
     max-height: 0;
   }
-
   .footer-col ul.open {
     max-height: 300px;
   }
 }
 
-/* BACK TO TOP */
+/* ================================
+   BACK TO TOP BUTTON
+================================ */
 .back-to-top {
   position: absolute;
   right: 25px;
   bottom: 25px;
-  padding: 10px 14px;
+  padding: 12px 18px;
   background: #00b4d8;
   border: none;
   border-radius: 50%;
-  color: black;
   font-size: 20px;
   cursor: pointer;
   display: none;
-  animation: fadeIn 1s ease;
+  transition: 0.3s ease;
+  box-shadow: 0px 0px 12px rgba(0, 180, 216, 0.5);
+}
+
+.food-footer:hover .back-to-top {
+  display: block;
 }
 
 .back-to-top:hover {
   background: #0093b6;
+  transform: translateY(-3px);
 }
 
-footer:hover .back-to-top {
-  display: block;
-}
-
-/* BOTTOM FLEX */
+/* ================================
+   BOTTOM SECTION
+================================ */
 .footer-bottom {
   text-align: center;
-  margin-top: 30px;
-  animation: fadeUp 1.2s ease;
+  margin-top: 35px;
 }
 
 .footer-links {
+  margin-top: 12px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
   justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 
-/* ANIMATIONS */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.footer-links span {
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.footer-links span:hover {
+  color: #00b4d8;
+}
+
+/* Line */
+.footer-line {
+  border-color: #333;
+  margin-top: 30px;
 }

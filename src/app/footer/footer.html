@@ -1,72 +1,70 @@
-<footer class="footer">
+<footer class="food-footer">
 
-  <!-- Back to Top Button -->
+  <!-- Back to Top -->
   <button class="back-to-top" (click)="scrollToTop()">↑</button>
 
-  <div class="footer-grid">
+  <div class="footer-container">
 
-    <!-- Column 1 -->
+    <!-- Brand Section -->
+    <div class="footer-col brand-col">
+      <h3 class="footer-logo">
+        <i class="bi bi-egg-fried"></i> Food Recommendations
+      </h3>
+
+      <p class="footer-desc">
+        Discover the best-rated food, explore dishes around the world, and share your own culinary experiences.
+      </p>
+
+      <div class="footer-social">
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-instagram"></i>
+        <i class="bi bi-twitter"></i>
+        <i class="bi bi-youtube"></i>
+      </div>
+    </div>
+
+    <!-- About -->
     <div class="footer-col">
       <h4 (click)="toggleSection(1)">
-        <i class="bi bi-info-circle"></i> About Food App
+        <i class="bi bi-info-circle"></i> About Us
       </h4>
       <ul [class.open]="openSection === 1">
-        <li><i class="bi bi-person"></i> About Us</li>
-        <li><i class="bi bi-megaphone"></i> Press</li>
-        <li><i class="bi bi-journal-text"></i> Resources and Policies</li>
+        <li><i class="bi bi-people"></i> Our Team</li>
+        <li><i class="bi bi-journal-text"></i> Policies</li>
         <li><i class="bi bi-briefcase"></i> Careers</li>
-        <li><i class="bi bi-shield-check"></i> Trust & Safety</li>
-        <li><i class="bi bi-envelope"></i> Contact Us</li>
-        <li><i class="bi bi-cpu"></i> Technology Blog</li>
+        <li><i class="bi bi-envelope"></i> Contact</li>
       </ul>
     </div>
 
-    <!-- Column 2 -->
+    <!-- Explore -->
     <div class="footer-col">
       <h4 (click)="toggleSection(2)">
-        <i class="bi bi-grid"></i> Explore
+        <i class="bi bi-search"></i> Explore
       </h4>
       <ul [class.open]="openSection === 2">
         <li><i class="bi bi-pencil-square"></i> Write a Review</li>
-        <li><i class="bi bi-geo-alt"></i> Add a Place</li>
-        <li><i class="bi bi-person-plus"></i> Join</li>
-        <li><i class="bi bi-award"></i> Travellers' Choice</li>
-        <li><i class="bi bi-question-circle"></i> Help Centre</li>
-        <li><i class="bi bi-journal-richtext"></i> Travel Stories</li>
+        <li><i class="bi bi-geo"></i> Add a Restaurant</li>
+        <li><i class="bi bi-star"></i> Top Rated</li>
+        <li><i class="bi bi-help-circle"></i> Help Centre</li>
       </ul>
     </div>
 
-    <!-- Column 3 -->
+    <!-- Apps & Partners -->
     <div class="footer-col">
       <h4 (click)="toggleSection(3)">
-        <i class="bi bi-briefcase"></i> Do Business With Us
-      </h4>
-      <ul [class.open]="openSection === 3">
-        <li><i class="bi bi-person-badge"></i> Owners</li>
-        <li><i class="bi bi-diagram-3"></i> Business Advantage</li>
-        <li><i class="bi bi-bullseye"></i> Sponsored Placements</li>
-        <li><i class="bi bi-megaphone"></i> Advertise with Us</li>
-        <li><i class="bi bi-link-45deg"></i> Access Content API</li>
-        <li><i class="bi bi-people"></i> Become an Affiliate</li>
-      </ul>
-    </div>
-
-    <!-- Column 4 -->
-    <div class="footer-col">
-      <h4 (click)="toggleSection(4)">
         <i class="bi bi-phone"></i> Get the App
       </h4>
-      <ul [class.open]="openSection === 4">
-        <li><i class="bi bi-apple"></i> iPhone App</li>
+      <ul [class.open]="openSection === 3">
+        <li><i class="bi bi-apple"></i> iOS App</li>
         <li><i class="bi bi-android2"></i> Android App</li>
       </ul>
 
-      <h4 class="mt-3" (click)="toggleSection(5)">
-        <i class="bi bi-globe"></i> Food Sites
+      <h4 class="mt-3" (click)="toggleSection(4)">
+        <i class="bi bi-globe"></i> Our Partners
       </h4>
-      <ul [class.open]="openSection === 5">
-        <li>TheFork — Restaurants</li>
-        <li>Viator — Tours</li>
+      <ul [class.open]="openSection === 4">
+        <li>TheFork</li>
+        <li>Viator</li>
         <li>Cruise Critic</li>
       </ul>
     </div>
@@ -75,16 +73,16 @@
 
   <hr class="footer-line">
 
+  <!-- Bottom -->
   <div class="footer-bottom">
-    <p>© 2025 Food Recommendations. All rights reserved.</p>
+    <p>© 2025 Food Recommendations — All Rights Reserved.</p>
 
     <div class="footer-links">
-      <span>Terms of Use</span>
-      <span>Privacy Policy</span>
-      <span>Cookie Consent</span>
-      <span>Site Map</span>
-      <span>Accessibility Statement</span>
+      <span>Terms</span>
+      <span>Privacy</span>
+      <span>Cookies</span>
+      <span>Accessibility</span>
+      <span>Support</span>
     </div>
   </div>
-
 </footer>

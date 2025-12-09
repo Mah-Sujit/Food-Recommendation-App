@@ -1,0 +1,29 @@
+<div class="navbar navbar-expand-sm bg-primary navbar-dark fixed-top">
+    <span class="navbar-brand">Biz Directory</span>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/'">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/foods'">Food</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="'/login'">Login</a>
+        </li>
+        <li class="nav-item">
+  <a routerLink="/contact" class="nav-link">Contact Us</a>
+</li>
+
+    </ul>
+    <!-- When NOT logged in -->
+    <a routerLink="/login" *ngIf="!isLoggedIn">Login</a>
+
+    <!-- When logged in -->
+    <span *ngIf="isLoggedIn" style="margin-left:auto; margin-right:10px;">
+        Logged in as: <strong>{{ username }}</strong>
+    </span>
+
+    <button *ngIf="isLoggedIn" routerLink="/login" (click)="onLogout()" class="logout-btn">
+        Logout
+    </button>
+</div>

@@ -11,7 +11,24 @@ import { Observable } from 'rxjs';
 export class FoodData {
 
   pageSize: number = 3;
-  
+  images: { [key: string]: string } = {
+  "pizza": "assets/images/pizza-restaurant.jpg",
+  "burger": "assets/images/burger-shop.jpg",
+  "cafe": "assets/images/cafe.jpg",
+  "coffee": "assets/images/cafe.jpg",
+  "chicken": "assets/images/chicken-food.jpg",
+  "thai": "assets/images/thai-food.jpg",
+  "indian": "assets/images/indian-food.jpg",
+  "asian": "assets/images/asian-noodles.jpg",
+  "noodle": "assets/images/asian-noodles.jpg",
+  "kebab": "assets/images/kebab-shop.jpg",
+  "mexican": "assets/images/mexican-food.jpg",
+  "taco": "assets/images/mexican-food.jpg",
+  "bbq": "assets/images/bbq-food.jpg",
+  "japan": "assets/images/sushi.jpg",
+  "sushi": "assets/images/sushi.jpg"
+};
+
   constructor(private http: HttpClient ){ }
 
   populateReviews() {
@@ -34,7 +51,11 @@ export class FoodData {
               
               'stars' : Math.floor( Math.random() * 5 + 1 )
             };
-            business['reviews']. push(dummyReview);
+            if (!business['CustomerReviews']) { 
+              business['CustomerReviews'] = [];} 
+              business['CustomerReviews'].push(dummyReview);
+
+
           }
           })
         })
@@ -59,6 +80,11 @@ export class FoodData {
     })
     return dataToReturn;
   }
+  getFoodsFromApi(page: number, pageSize: number) {
+  const url = `http://127.0.0.1:5001/business?pn=${page}&ps=${pageSize}`;
+  return this.http.get<any>(url);
+}
+
   getLoremIpsum(paragraphs: number) : Observable<any> {
     let API_key = "DtUmNNozJWdZQaT2ernjMw==T0rWimQybxCZTdWV";
     return this.http.get<any>(
@@ -83,16 +109,46 @@ getTemperatureColour(temp: number) {
 }
 
 postReview(id: any, review: any) { 
-  let newReview = { 
+  const newReview = { 
     username: review.username, 
-    review: review.comment, 
+    comment: review.comment, 
     stars: review.stars 
   }; 
 
-  jsonData.forEach(function(business) { 
-    if (business._id.$oid == id) { 
-      business['reviews'].push(newReview); 
+  jsonData.forEach((food: any) => { 
+    if (food._id.$oid == id) { 
+      
+      if (!food['CustomerReviews']) {
+        food['CustomerReviews'] = [];
+      }
+
+      food['CustomerReviews'].push(newReview); 
     } 
   }); 
+}
+getImageForBusiness(name: string): string {
+  if (!name) return "assets/images/restaurant-default.jpg";
+
+  // Clean the name: remove symbols like @, &, /, ', etc.
+  const key = name.toLowerCase().replace(/[^a-z0-9 ]/g, "");
+
+  const lowered = name.toLowerCase();
+
+  // Category-based image rules
+  if (lowered.includes("pizza")) return "assets/images/pizza-restaurant.jpg";
+  if (lowered.includes("burger")) return "assets/images/burger-shop.jpg";
+  if (lowered.includes("cafe") || lowered.includes("coffee")) return "assets/images/cafe.jpg";
+  if (lowered.includes("chicken")) return "assets/images/chicken-food.jpg";
+  if (lowered.includes("thai")) return "assets/images/thai-food.jpg";
+  if (lowered.includes("indian")) return "assets/images/indian-food.jpg";
+  if (lowered.includes("asian") || lowered.includes("noodle")) return "assets/images/asian-noodles.jpg";
+  if (lowered.includes("kebab")) return "assets/images/kebab-shop.jpg";
+  if (lowered.includes("mexican") || lowered.includes("taco")) return "assets/images/mexican-food.jpg";
+  if (lowered.includes("bbq")) return "assets/images/bbq-food.jpg";
+  if (lowered.includes("japan") || lowered.includes("sushi")) return "assets/images/sushi.jpg";
+
+  // Default image OR image from your predefined dictionary
+  return this.images[key] || "assets/images/restaurant-default.jpg";
+
 }
 }

@@ -1,0 +1,33 @@
+<div class="signup-page">
+
+  <div class="signup-card animate">
+    <h2>Create Your Account</h2>
+    <p class="subtitle">Join our Food Recommendation App</p>
+
+    <form (ngSubmit)="signUp()">
+
+      <div class="input-group">
+        <input type="text" placeholder="Full Name" [(ngModel)]="form.username" name="name" required>
+      </div>
+
+      <div class="input-group">
+        <input type="email" placeholder="Email Address" [(ngModel)]="form.email" name="email" required>
+      </div>
+
+      <div class="input-group">
+        <input type="password" placeholder="Password" [(ngModel)]="form.password" name="password" required>
+      </div>
+
+      <div class="input-group">
+        <input type="password" placeholder="Confirm Password" [(ngModel)]="form.confirm" name="confirm" required>
+      </div>
+
+      <button type="submit" class="btn">Sign Up</button>
+    </form>
+
+    <p class="login-link">
+      Already have an account? <a routerLink="/login">Login</a>
+    </p>
+
+  </div>
+</div>
