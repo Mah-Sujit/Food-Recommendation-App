@@ -1,0 +1,112 @@
+.admin-food-list {
+  padding: 1.25rem;
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #222;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.admin-food-list h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  color: #111;
+}
+
+/* Empty state */
+.empty {
+  color: #6b6b6b;
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+/* Food list */
+.food-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.food-list li {
+  padding: 0.75rem;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  background: linear-gradient(180deg, #fff, #fbfbfb);
+}
+
+.food-list h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #0a0a0a;
+}
+
+.food-list p {
+  margin: 0;
+  color: #444;
+  font-size: 0.9rem;
+}
+
+/* Pagination controls */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.pagination button {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid #d8d8d8;
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.12s, border-color 0.12s, color 0.12s;
+  min-width: 40px;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.pagination button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Active page button */
+.pagination button.active {
+  background: #1d72b8;
+  color: #fff;
+  border-color: #165d95;
+}
+
+/* Small "Page X of Y" text */
+.pagination span {
+  margin-left: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (min-width: 560px) {
+  .food-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 920px) {
+  .food-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

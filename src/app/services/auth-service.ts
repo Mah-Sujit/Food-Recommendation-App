@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject } from "rxjs";
   providedIn: 'root',
 })
 export class AuthService {
-  
+  private apiUrl = 'http://127.0.0.1:5001/login';
   isLoggedIn$ = new BehaviorSubject<boolean>(false);
   currentUser$ = new BehaviorSubject<string | null>(null);
 
@@ -31,10 +31,15 @@ export class AuthService {
     const basicToken = btoa(`${username}:${password}`);
 
     const headers = new HttpHeaders({
-      Authorization: `Basic ${basicToken}`
+      Authorization: `Basic ${basicToken}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     });
 
-    return this.http.get('http://127.0.0.1:5001/login', { headers });
+
+    const body = { username, password }; 
+
+    return this.http.post('http://127.0.0.1:5001/login',body, { headers });
   }
 
   logout(token: string) {
@@ -42,7 +47,7 @@ export class AuthService {
       'x-access-token': token
     });
 
-    return this.http.get('http://127.0.0.1:5001/logout', { headers });
+    return this.http.post('http://127.0.0.1:5001/logout',{}, { headers });
   }
 
   

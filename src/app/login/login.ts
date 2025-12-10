@@ -6,7 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  standalone: true,     // <-- 🔥 REQUIRED FOR ROUTING
+  standalone: true,     // <--  REQUIRED FOR ROUTING
   imports: [CommonModule, ReactiveFormsModule, FormsModule,RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -23,6 +23,10 @@ export class Login {
     private router: Router) { }
 
   onLogin() {
+    console.log("USERNAME:", this.username);
+console.log("PASSWORD:", this.password);
+
+
     if (!this.username || !this.password) {
       this.message = 'Please enter username & password.';
       return;

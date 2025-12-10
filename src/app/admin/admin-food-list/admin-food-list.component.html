@@ -1,0 +1,29 @@
+<div class="admin-food-list">
+  <h2>Admin Food List</h2>
+
+  <div *ngIf="foods.length === 0" class="empty">No foods found.</div>
+
+  <ul *ngIf="foods.length > 0" class="food-list">
+    <li *ngFor="let f of foods">
+      <h3>{{ f.name }}</h3>
+      <p>{{ f.description }}</p>
+    </li>
+  </ul>
+
+  <div class="pagination" *ngIf="total_pages > 1">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+
+    <button
+      *ngFor="let p of pages"
+      (click)="goToPage(p)"
+      [class.active]="currentPage === p"
+    >
+      {{ p }}
+    </button>
+
+    <button (click)="nextPage()" [disabled]="currentPage === total_pages">Next</button>
+    <button (click)="goToPage(total_pages)">Last</button>
+
+    <span>Page {{ currentPage }} of {{ total_pages }}</span>
+  </div>
+</div>

@@ -10,14 +10,14 @@ export class WebServices {
 
   pageSize: number = 3;
   total_pages = 1;
- private baseUrl = 'http://127.0.0.1:5001';
+ private baseUrl = 'http://127.0.0.1:5001/food';
 
 
   constructor(private http: HttpClient) { }
 
   getfoods(page: number){
     return this.http.get<any>(
-      'http://127.0.0.1:5001/food?pn=' +
+      'http://127.0.0.1:5001/food/?pn=' +
       page + '&ps=' + this.pageSize
       );
   }
@@ -35,8 +35,7 @@ export class WebServices {
 
   getReviews(id: any){
     return this.http.get<any>(
-      'http://127.0.0.1:5001/food/${id}/reviews'
-    );
+      `http://127.0.0.1:5001/food/${id}/reviews`);
   }
 
   postReview(id: any, review: any){
@@ -46,23 +45,22 @@ export class WebServices {
     postData.append("stars", review.stars);
 
     return this.http.post<any>(
-        'http://127.0.0.1:5001/food/${id}/reviews',
+        `http://127.0.0.1:5001/food/${id}/reviews`,
         postData);
 }
 
-
-  // NEW: create
+// Create new food
   addFood(food: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/food`, food);
+    return this.http.post(`${this.baseUrl}/`, food);
   }
 
-  // NEW: update
+  // Update food
   updateFood(id: string, food: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/food/${id}`, food);
+    return this.http.put(`${this.baseUrl}/${id}`, food);
   }
 
-  // NEW: delete
+  // Delete food
   deleteFood(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/food/${id}`);
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }

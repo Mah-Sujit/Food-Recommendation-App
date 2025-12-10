@@ -81,7 +81,7 @@ export class FoodData {
     return dataToReturn;
   }
   getFoodsFromApi(page: number, pageSize: number) {
-  const url = `http://127.0.0.1:5001/business?pn=${page}&ps=${pageSize}`;
+  const url = `http://127.0.0.1:5001/food?pn=${page}&ps=${pageSize}`;
   return this.http.get<any>(url);
 }
 

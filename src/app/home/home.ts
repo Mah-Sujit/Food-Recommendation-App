@@ -4,15 +4,17 @@ import { FoodData } from '../services/food-data';
 import { Footer } from '../footer/footer';
 import { CommonModule } from '@angular/common';
 import { Food } from '../foods/food/food';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [FormsModule, Footer,CommonModule],
+  imports: [FormsModule, Footer,CommonModule,RouterModule],
   templateUrl: './home.html',
   styleUrls: ['./home.css'],
 })
 export class Home implements OnInit {
+  
 
   message = signal('Hello! Welcome to Food App.');
 
@@ -23,7 +25,11 @@ export class Home implements OnInit {
   topFoods: any[] = [];
 
 
-  constructor(private foodData: FoodData) {}
+  constructor(private foodData: FoodData,
+     private router: Router
+
+  ) {}
+
 
   ngOnInit() {
     // Populate topRecommendations from available food data (take first 5 items)
@@ -38,7 +44,7 @@ export class Home implements OnInit {
     console.log("🔥 RAW API RESPONSE:", res);
 
     if (!res || !res.items || res.items.length === 0) {
-      console.error("❌ ERROR: res.items is empty or undefined");
+      console.error(" ERROR: res.items is empty or undefined");
       return;
     }
 
@@ -74,13 +80,11 @@ export class Home implements OnInit {
 
   // Search Logic
   onSearch() {
-    const q = this.searchQuery.toLowerCase();
+  if (!this.searchQuery.trim()) return;
 
-    this.searchResults = this.foodData.getFoods(1).filter((item: any) =>
-      item.name?.toLowerCase().includes(q) ||
-      item.town?.toLowerCase().includes(q) ||
-      item.cuisine?.toLowerCase().includes(q)
-    );
+  this.router.navigate(['/foods'], {
+    queryParams: { search: this.searchQuery }
+  });
 
     console.log('Search results:', this.searchResults);
   }

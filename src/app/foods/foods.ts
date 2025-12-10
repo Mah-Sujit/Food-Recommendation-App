@@ -4,13 +4,14 @@ import { RouterModule } from '@angular/router';
 import { WebServices } from '../services/web-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Route } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
   selector: 'app-foods',
   standalone: true,
   imports: [RouterModule,FormsModule, CommonModule],
-  providers: [FoodData, WebServices],
   templateUrl: './foods.html',
   styleUrl: './foods.css',
 })
@@ -31,22 +32,34 @@ export class Foods implements OnInit {
 
 
   constructor(public foodData: FoodData, 
-    public webService: WebServices) {}
+    public webService: WebServices,
+    private route: ActivatedRoute) {}
 
-  ngOnInit() { this.loadPage(this.page); 
 
-    if (sessionStorage['page']) {
-      this.page = Number(sessionStorage['page']);
+    ngOnInit() {
+
+  // 1️⃣ Read URL query parameters (search, rating, sort)
+  this.route.queryParams.subscribe(params => {
+    this.searchQuery = params['search'] || "";
+    this.minRating = params['minRating'] || null;
+    this.sortBy = params['sort'] || "ratingDesc";
+
+    // Apply filters AFTER loading items
+    if (this.food_list.length > 0) {
+      this.applyFilters();
     }
-    this.webService.getfoods(this.page).subscribe(
-      (res:any) => {
+  });
 
-    this.food_list = res.items;     
-    this.total_pages = res.total_pages; 
-      });
-   // this.food_list = this.foodData.getFoods(this.page);
-   
+  // 2️⃣ Restore saved page state
+  if (sessionStorage['page']) {
+    this.page = Number(sessionStorage['page']);
+  }
+
+  // 3️⃣ Load page data from API
+  this.loadPage(this.page);
 }
+
+
 
   loadPage(page: number) {
   this.webService.getfoods(page).subscribe((res: any) => {
@@ -88,7 +101,7 @@ previousPage(){
     if(this.page > 1){
       this.page = this.page - 1;
        //this.food_list = this.foodData.getfoods(this.page);;
-      this.webService.getfoods(this.page).subscribe(
+      this.webService.getfood(this.page).subscribe(
         (response: any) => {
           this.food_list = response;
         }
@@ -101,7 +114,7 @@ previousPage(){
     if (this.page< this.foodData.getLastPageNumber()){
       this.page = this.page + 1;
       this.loadPage(this.page);
-      this.webService.getfoods(this.page).subscribe(
+      this.webService.getfood(this.page).subscribe(
         (response: any) => {
           this.food_list = response;
         }
