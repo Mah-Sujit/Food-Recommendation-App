@@ -1,11 +1,11 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAuth0 } from '@auth0/auth0-angular';
 import { provideHttpClient } from '@angular/common/http';
-import { App } from './app/app';
+import { AppComponent } from './app/app';
 import { appConfig } from './app/app.config';
 import { routes } from './app/app.routes';
 
-bootstrapApplication(App, {
+bootstrapApplication(AppComponent, {
   providers: [
     provideAuth0({
       domain: 'dev-b15cmrlih70ewqe0.us.auth0.com',
@@ -17,4 +17,4 @@ bootstrapApplication(App, {
     provideHttpClient(),
     appConfig.providers
   ]
-}).catch((err) => console.error(err));
+}).catch((err) => console.error(err))

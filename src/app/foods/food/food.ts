@@ -44,6 +44,10 @@ export class Food {
   temperatureColour: string = '';
   weather: string = '';
   reviewForm: any;
+
+  food: any = {};
+  reviews: any[] = [];
+  weatherDescription: string = "";
   
 
   constructor(

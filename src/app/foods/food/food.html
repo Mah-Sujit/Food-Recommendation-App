@@ -1,78 +1,59 @@
-<div class="container" style="margin-top: 70px">
+<div class="container" style="margin-top: 70px" *ngIf="food">
 
-  @for (food of food_list; track food._id) {
+  <!-- Title + Rating -->
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="display-1">
+        {{ food.name }} ({{ food.city }})
+      </div>
 
-    <!-- Food Title + Rating -->
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="display-1">
-          {{ food.name }} ({{ food.city }})
-        </div>
-
-        <div class="mt-2">
-          <span *ngFor="let star of [].constructor(food.rating)">
-            <img src="assets/images/star.png" style="width:30px; height:30px">
-          </span>
-        </div>
+      <div class="mt-2">
+        <span *ngFor="let star of [].constructor(food.rating)">
+          <img src="assets/images/star.png" style="width:30px; height:30px">
+        </span>
       </div>
     </div>
+  </div>
 
-    <!-- Description + Google Map -->
-    <div class="row mt-4">
-      <div class="col-sm-6">
-        <h3>Description</h3>
-        <p>{{ loremIpsum }}</p>
-      </div>
-
-      <div class="col-sm-6 text-center">
-
-        <google-map height="400px" width="400px" [options]="map_options">
-
-          @for (location of map_locations; track location) {
-            <map-advanced-marker
-              [position]="{ lat: location.lat, lng: location.lng }">
-            </map-advanced-marker>
-          }
-
-        </google-map>
-
-      </div>
+  <!-- Description + Map -->
+  <div class="row mt-4">
+    <div class="col-sm-6">
+      <h3>Description</h3>
+      <p>{{ loremIpsum }}</p>
     </div>
 
-    <!-- Weather Section -->
-    <div class="row mt-4 text-center">
-      <div class="col-sm-12">
-        <img *ngIf="weatherIconURL" [src]="weatherIconURL" width="100">
-        <h4 *ngIf="temperature">Temperature: {{ temperature }}°C</h4>
-        <h5 *ngIf="weather">{{ weather }}</h5>
+    <div class="col-sm-6 text-center">
+      <google-map height="400px" width="400px" [options]="map_options">
+        <map-advanced-marker
+          *ngFor="let location of map_locations"
+          [position]="{ lat: location.lat, lng: location.lng }">
+        </map-advanced-marker>
+      </google-map>
+    </div>
+  </div>
+
+  <!-- Weather Section -->
+  <div class="row mt-4 text-center">
+    <div class="col-sm-12">
+      <img *ngIf="weatherIconURL" [src]="weatherIconURL" width="100">
+      <h4 *ngIf="temperature">Temperature: {{ temperature }}°C</h4>
+      <h5 *ngIf="weather">{{ weather }}</h5>
+    </div>
+  </div>
+
+  <!-- Reviews -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <h3>Customer Reviews</h3>
+
+      <div class="card bg-light mb-3" *ngFor="let review of reviews_list">
+        <div class="card-header">{{ review.username }}</div>
+        <div class="card-body">{{ review.comment }}</div>
+        <div class="card-footer">⭐ {{ review.stars }}</div>
       </div>
     </div>
+  </div>
 
-    <!-- Reviews List -->
-    <div class="row mt-5">
-      <div class="col-sm-12">
-        <h3>Customer Reviews</h3>
-
-        @for (review of reviews_list; track review._id) {
-          <div class="card bg-light mb-3">
-            <div class="card-header">
-              {{ review.username }}
-            </div>
-
-            <div class="card-body">
-              {{ review.comment }}
-            </div>
-
-            <div class="card-footer">
-              ⭐ {{ review.stars }}
-            </div>
-          </div>
-        }
-
-      </div>
-    </div>
-
-  }
 </div>
 
 <!-- Review Form -->

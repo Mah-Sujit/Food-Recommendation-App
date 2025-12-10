@@ -10,47 +10,118 @@ export class AuthService {
   isLoggedIn$ = new BehaviorSubject<boolean>(false);
   currentUser$ = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.restoreLoginState();
+    const existingToken = localStorage.getItem("token");
+  if (existingToken) this.startTokenWatcher();
+  }
+
+  // RESTORE LOGIN ON PAGE REFRESH
+  private restoreLoginState() {
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("username");
+
+    if (token && username) {
+      this.isLoggedIn$.next(true);
+      this.currentUser$.next(username);
+    }
+  }
 
   login(username: string, password: string): Observable<any> {
-    const basicToken = btoa(`${username}:${password}`)
+    const basicToken = btoa(`${username}:${password}`);
 
     const headers = new HttpHeaders({
       Authorization: `Basic ${basicToken}`
     });
 
-    return this.http.get('http://127.0.0.1:5001/login', {headers});
+    return this.http.get('http://127.0.0.1:5001/login', { headers });
   }
 
-  logout(token: string){
+  logout(token: string) {
     const headers = new HttpHeaders({
-      'x-access-token':token
+      'x-access-token': token
     });
 
-    return this.http.get('http://127.0.0.1:5001/logout', {headers});
+    return this.http.get('http://127.0.0.1:5001/logout', { headers });
   }
 
   
-  //Helpers
+  // Save login state
   setLoginState(username: string, token: string) {
-  this.isLoggedIn$.next(true);
-  this.currentUser$.next(username);
+    this.isLoggedIn$.next(true);
+    this.currentUser$.next(username);
 
-  // Here 'token' EXISTS because it is a parameter.
-  localStorage.setItem('username', username);
-  localStorage.setItem('token', token);
-}
+    localStorage.setItem('username', username);
+    localStorage.setItem('token', token);
 
-  
-  clearLoginState(){
+    this.startTokenWatcher();
+  }
+
+  clearLoginState() {
     this.isLoggedIn$.next(false);
     this.currentUser$.next(null);
+
+    localStorage.removeItem("username");
+    localStorage.removeItem("token");
   }
-   getToken(): string | null {
+
+  getToken(): string | null {
     return localStorage.getItem('token');
   }
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
+  }
+
+  // ADMIN CHECK
+  isAdmin(): boolean {
+    const token = localStorage.getItem("token");
+    if (!token) return false;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.admin === true;
+    } catch {
+      return false;
+    }
+  }
+
+  getTokenPayload() {
+  const token = localStorage.getItem('token');
+  if (!token) return null;
+
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch {
+    return null;
+  }
+}
+startTokenWatcher() {
+  const payload = this.getTokenPayload();
+  if (!payload?.exp) return;
+
+  const expiryTime = payload.exp * 1000;
+  const now = Date.now();
+  const timeout = expiryTime - now;
+
+  // Token already expired → logout user immediately
+  if (timeout <= 0) {
+    this.forceLogout();
+    return;
+  }
+
+  // Auto logout when the token actually expires
+  setTimeout(() => {
+    this.forceLogout();
+  }, timeout);
+}
+forceLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+
+    this.isLoggedIn$.next(false);
+    this.currentUser$.next(null);
+
+    window.location.href = '/login';
   }
 }

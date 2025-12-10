@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,8 @@ export class WebServices {
 
   pageSize: number = 3;
   total_pages = 1;
+ private baseUrl = 'http://127.0.0.1:5001';
+
 
   constructor(private http: HttpClient) { }
 
@@ -46,4 +49,20 @@ export class WebServices {
         'http://127.0.0.1:5001/food/${id}/reviews',
         postData);
 }
+
+
+  // NEW: create
+  addFood(food: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/food`, food);
+  }
+
+  // NEW: update
+  updateFood(id: string, food: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/food/${id}`, food);
+  }
+
+  // NEW: delete
+  deleteFood(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/food/${id}`);
+  }
 }

@@ -6,6 +6,7 @@ import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
+  standalone: true,     // <-- 🔥 REQUIRED FOR ROUTING
   imports: [CommonModule, ReactiveFormsModule, FormsModule,RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
@@ -27,30 +28,31 @@ export class Login {
       return;
     }
 
+    console.log("Login clicked"); 
     this.authService.login(this.username, this.password).subscribe({
-      next: (res) => {
-        this.token = res.Token;
-       
-         if (!this.token) {
-          this.message = 'No token received from server!';
-          return;
-        }
+  next: (res) => {
+    console.log("LOGIN RESPONSE:", res);
 
-        // Save auth state
-        this.authService.setLoginState(this.username, this.token);
+    const token = res.Token || res.token || res.jwt; // try all possible keys
 
-         this.message = 'Login successful!';
+    if (!token) {
+      this.message = "No token received from backend";
+      return;
+    }
 
-        // Navigate to home page
-        this.router.navigate(['/']);
-      },
-      error: (err) => {
-        this.message = err.error?.message || 'Login error';
-      }
-    });
+    this.authService.setLoginState(this.username, token);
+    this.message = "Login successful!";
+    this.router.navigate(['/']);
+  },
+  error: (err) => {
+    this.message = err.error?.message || 'Login error';
+  }
+});
   }
 
+
   onLogout() {
+     const token = this.authService.getToken();
     if (!this.token) return;
 
     this.authService.logout(this.token).subscribe({
