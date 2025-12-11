@@ -1,96 +1,180 @@
 <div class="home-page">
 
-  <!-- HERO SECTION -->
-  <div class="hero-bg">
-    <div class="glass-container text-center">
+  <!-- =========================
+       HERO / BRAND SECTION
+  ========================== -->
+  <section class="hero-section">
 
-      <h1 class="display-3 fw-bold">🍜 Food Rating Recommendation App</h1>
+    <div class="hero-overlay"></div>
 
-      <p class="lead mt-3 animate-fade">
-        We recommend restaurants and dishes based on your preferences, reviews, and real user ratings.
-      </p>
+    <div class="container hero-content">
 
-      <!-- Search Bar -->
-      <div class="search-box animate-slide">
-        <input
-          type="text"
-          class="form-control search-input"
-          placeholder="Search restaurants, dishes or cuisines..."
-          [(ngModel)]="searchQuery"
-          (input)="onSearch()"
-        >
-        <button class="btn btn-primary px-4" (click)="onSearch()">Search</button>
+      <!-- Left: Brand + Search -->
+      <div class="hero-left">
+        <div class="brand-badge">
+          <span class="brand-logo">🍜</span>
+          <span class="brand-name">Food<span>Sense</span></span>
+        </div>
+
+        <h1 class="hero-title">
+          Discover the <span>best-rated</span> food near you.
+        </h1>
+
+        <p class="hero-subtitle">
+          Smart recommendations based on real user ratings, reviews and location.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="hero-search">
+          <input
+            type="text"
+            class="form-control search-input"
+            placeholder="Search restaurants, dishes or cuisines..."
+            [(ngModel)]="searchQuery"
+            (keyup.enter)="onSearch()"
+          >
+          <button class="btn btn-primary search-btn" (click)="onSearch()">
+            <i class="bi bi-search"></i> Search
+          </button>
+        </div>
+
+        <div class="hero-tags">
+          <span class="tag-pill">⭐ Top Rated</span>
+          <span class="tag-pill">🚀 Fast Picks</span>
+          <span class="tag-pill">🌍 Nearby</span>
+        </div>
+      </div>
+
+      <!-- Right: Hero Illustration / Stats -->
+      <div class="hero-right d-none d-md-flex">
+        <div class="hero-card floating">
+          <h5>Today’s Highlights</h5>
+          <p class="small text-muted mb-2">Based on ratings in your area</p>
+
+          <div class="stat-row">
+            <div>
+              <div class="stat-number">4.9</div>
+              <div class="stat-label">Avg. Rating</div>
+            </div>
+            <div>
+              <div class="stat-number">120+</div>
+              <div class="stat-label">Restaurants</div>
+            </div>
+            <div>
+              <div class="stat-number">800+</div>
+              <div class="stat-label">Reviews</div>
+            </div>
+          </div>
+
+          <div class="mini-chip">
+            <i class="bi bi-geo-alt-fill"></i>
+            Smart location-aware suggestions
+          </div>
+        </div>
       </div>
 
     </div>
-  </div>
+  </section>
 
 
-  <!-- HOW IT WORKS SECTION -->
-  <div class="container mt-5 scroll-animate">
-    <h2 class="text-center mb-4 fw-bold">How It Works</h2>
+  <!-- =========================
+       HOW IT WORKS
+  ========================== -->
+  <section class="container how-it-works-section scroll-animate">
+    <h2 class="section-title text-center mb-4">
+      How <span>FoodSense</span> works
+    </h2>
+    <p class="section-subtitle text-center mb-5">
+      We combine reviews, ratings and location data to recommend places you’ll actually love.
+    </p>
 
     <div class="row g-4 how-it-works">
 
       <div class="col-md-4 text-center">
-        <div class="how-card animate-up">
+        <div class="how-card">
           <div class="icon">🔍</div>
           <h4>1. Explore</h4>
-          <p>Browse restaurants, dishes, and cuisines based on location & preferences.</p>
+          <p>Browse restaurants, dishes and cuisines based on your preferences and location.</p>
         </div>
       </div>
 
       <div class="col-md-4 text-center">
-        <div class="how-card animate-up">
+        <div class="how-card">
           <div class="icon">⭐</div>
-          <h4>2. Check Ratings</h4>
-          <p>View hygiene scores, user reviews and weather information.</p>
+          <h4>2. Compare Ratings</h4>
+          <p>See ratings, reviews and details so you can pick the best option quickly.</p>
         </div>
       </div>
 
       <div class="col-md-4 text-center">
-        <div class="how-card animate-up">
+        <div class="how-card">
           <div class="icon">🍽️</div>
-          <h4>3. Get Recommendations</h4>
-          <p>Receive personalized food and restaurant suggestions.</p>
+          <h4>3. Get Smart Picks</h4>
+          <p>We highlight top-rated spots tailored to you, so you never have a bad meal.</p>
         </div>
       </div>
 
     </div>
-  </div>
+  </section>
 
 
-  <!-- 🔥 TOP RATED RESTAURANTS -->
-  <div class="container mt-5">
-    <h2 class="text-center fw-bold">🔥 Top Rated Restaurants</h2>
+  <!-- =========================
+       TOP RATED RESTAURANTS
+  ========================== -->
+  <section class="container top-rated-section scroll-animate">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h2 class="section-title mb-1">🔥 Top Rated Restaurants</h2>
+        <p class="section-subtitle mb-0">Handpicked from recent ratings and reviews.</p>
+      </div>
+      <a routerLink="/foods" class="btn btn-outline-primary d-none d-md-inline-flex">
+        View all <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
 
-    <div class="row mt-4" *ngIf="topFoods.length > 0">
-      <div class="col-md-4" *ngFor="let food of topFoods">
-        <div class="card shadow-sm p-2">
+    <div class="row mt-3" *ngIf="topFoods.length > 0">
+      <div class="col-md-4 mb-4" *ngFor="let food of topFoods">
+        <div class="card preview-card h-100">
 
-          <!-- Restaurant Image with fallback -->
-          <img
-            [src]="food.image || 'assets/images/restaurant-default.jpg'"
-            class="card-img-top"
-            alt="food image"
-            style="height: 180px; object-fit: cover;"
-          >
+          <div class="card-img-wrapper">
+            <img
+              [src]="food.image || 'assets/images/restaurant-default.jpg'"
+              class="card-img-top"
+              alt="food image"
+            >
+            <span class="rating-badge">
+              ⭐ {{ food.rating }}
+            </span>
+          </div>
 
           <div class="card-body">
             <h5 class="card-title">{{ food.name }}</h5>
-            <p class="text-muted">{{ food.city }}, {{ food.country }}</p>
+            <p class="text-muted mb-1">
+              <i class="bi bi-geo-alt"></i>
+              {{ food.city }}, {{ food.country }}
+            </p>
 
-            <!-- ⭐ STAR RATING -->
-            <div class="stars">
+            <div class="stars mb-2">
               <span *ngFor="let star of [].constructor(food.rating)">⭐</span>
             </div>
+
+            <button
+              class="btn btn-sm btn-outline-primary mt-2"
+              [routerLink]="['/foods']"
+              [queryParams]="{ search: food.name }"
+            >
+              View similar
+            </button>
           </div>
 
         </div>
       </div>
     </div>
-  </div>
 
+    <p class="text-muted text-center mt-3" *ngIf="topFoods.length === 0">
+      Loading top rated restaurants...
+    </p>
+  </section>
 
   <!-- FOOTER -->
   <app-footer></app-footer>

@@ -6,8 +6,10 @@
   color: #eaeaea;
   padding: 60px 25px;
   position: relative;
-  margin-top: 120px;
+  margin-top: 50px;   /* normal spacing */
+  z-index: 1;         /* lower than content */
 }
+
 
 /* ================================
    RESPONSIVE GRID
