@@ -1,29 +1,35 @@
-/********************************
-  ANIMATED BACKGROUND (AURORA)
-*********************************/
-.animated-bg {
+/* ======================================
+   BACKGROUND IMAGE (FROM HTML)
+====================================== */
+.bg-wrapper {
   position: fixed;
   inset: 0;
-  background: linear-gradient(120deg, #4b7bec, #6c5ce7, #a29bfe, #0984e3);
-  background-size: 300% 300%;
-  animation: gradientMove 12s ease infinite;
-  z-index: -2;
+  overflow: hidden;
+  z-index: -3;
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.5) blur(2px);
+  animation: zoomBg 10s ease-in-out infinite alternate;
 }
 
-/********************************
-  GLASSMORPHISM CARD + LAYOUT
-*********************************/
+@keyframes zoomBg {
+  from { transform: scale(1); }
+  to   { transform: scale(1.18); }
+}
+
+/* ======================================
+   LOGIN CONTAINER
+====================================== */
 .login-container {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 30px;
 }
 
 .login-card {
@@ -31,36 +37,46 @@
   max-width: 420px;
   padding: 40px;
   border-radius: 20px;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
   backdrop-filter: blur(20px);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
-  animation: fadeUp 0.8s ease-out;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+  animation: fadeUp 0.7s ease-out;
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px), scale(0.95); }
-  to { opacity: 1; transform: translateY(0), scale(1); }
+  from { opacity: 0; transform: translateY(25px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/********************************
-  TITLES
-*********************************/
-.title {
-  color: #fff;
-  text-align: center;
-  font-size: 28px;
-  font-weight: 700;
-}
-.subtitle {
-  text-align: center;
-  color: #eaeaea;
-  margin-bottom: 25px;
+/* ======================================
+   REMEMBER + FORGOT PASSWORD ROW
+====================================== */
+.options-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;         /* Make text bold */
+  margin-bottom: 15px;
+  color: #edf3ef;
+  gap: 25px;                /* SPACE BETWEEN BOTH ITEMS */
+  padding: 0 4px;
 }
 
-/********************************
-  FLOATING INPUTS + NEON GLOW
-*********************************/
+.remember-me input {
+  margin-right: 6px;
+}
+
+.forgot {
+  color: #0d6eec;
+  font-weight: 700;         /* Make bold */
+  cursor: pointer;
+  margin-left: 10px;        /* Extra spacing */
+}
+
+/* ======================================
+   INPUT FIELDS
+====================================== */
 .input-group {
   position: relative;
   margin-bottom: 25px;
@@ -70,43 +86,33 @@
   width: 100%;
   padding: 14px 45px;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.18);
+  border: 3px solid rgba(255,255,255,0.35);
   color: #fff;
-  backdrop-filter: blur(6px);
-  transition: 0.25s ease;
 }
 
-.input-group input:focus {
-  border-color: #74b9ff;
-  box-shadow: 0 0 12px 2px rgba(116,185,255,0.9); /* NEON */
-}
-
-/* Floating label */
 .input-group label {
   position: absolute;
-  left: 45px;
   top: 50%;
+  left: 45px;
   transform: translateY(-50%);
   color: #ddd;
   pointer-events: none;
-  transition: 0.3s ease;
+  transition: 0.3s;
 }
 
 .input-group input:focus ~ label,
 .input-group input:not(:placeholder-shown) ~ label {
-  top: -7px;
-  left: 12px;
-  padding: 0 6px;
+  top: -8px;
+  left: 10px;
   background: rgba(0,0,0,0.3);
-  border-radius: 5px;
+  padding: 2px 6px;
   font-size: 12px;
-  color: #74b9ff;
+  border-radius: 4px;
+  color: #4b7bec;
 }
 
-/********************************
-  ICONS
-*********************************/
+/* Icons */
 .icon {
   position: absolute;
   left: 15px;
@@ -123,91 +129,54 @@
   cursor: pointer;
 }
 
-/********************************
-  OPTIONS ROW
-*********************************/
-.options-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  color: #fff;
-}
-
-/********************************
-  NEON GLOW LOGIN BUTTON
-*********************************/
+/* ======================================
+   BUTTONS
+====================================== */
 .btn.primary {
   width: 100%;
   padding: 14px;
   border-radius: 10px;
   border: none;
-  font-size: 18px;
-  cursor: pointer;
-  color: white;
   background: #4b7bec;
-  transition: 0.3s ease;
+  color: #fff;
+  font-size: 18px;
 }
 
-.btn.primary:hover {
-  box-shadow: 0 0 18px #4b7bec, 0 0 30px rgba(75,123,236,0.6); /* NEON */
-  transform: translateY(-2px);
-}
-
-/********************************
-  SOCIAL BUTTONS
-*********************************/
-.social-buttons {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
+/* Social Buttons */
 .btn.social {
-  width: 40%;
-  padding: 12px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-/********************************
-  AUTH0 BUTTON
-*********************************/
-.btn.auth0 {
+  margin-top: 12px;
   width: 100%;
   padding: 12px;
-  margin-top: 10px;
-  background: #eb5424;
-  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.25);
   border-radius: 10px;
+  gap: 10px;
+  color: #fff;
 }
 
-/********************************
-  ERROR MESSAGE
-*********************************/
-.message {
-  margin-top: 12px;
-  text-align: center;
-  color: #ff7675;
+.social-icon,
+.auth0-icon {
+  width: 50px;
+  height: 50px;
 }
 
-/********************************
-  TOGGLE SWITCH (iOS)
-*********************************/
+/* ======================================
+   DARK MODE TOGGLE
+====================================== */
 .toggle-switch {
   position: fixed;
   top: 20px;
   right: 20px;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .switch {
   width: 62px;
   height: 30px;
-  background: rgba(255,255,255,0.3);
-  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.4);
   border-radius: 20px;
   position: relative;
 }
@@ -215,27 +184,39 @@
 .switch .ball {
   width: 26px;
   height: 26px;
-  background: #fff;
+  background: white;
   border-radius: 50%;
   position: absolute;
   left: 2px;
   top: 2px;
-  transition: transform 0.3s ease;
+  transition: 0.3s;
 }
 
 .dark .switch .ball {
   transform: translateX(32px);
 }
-
-.sun {
-  position: absolute;
-  left: 10px; top: 4px;
+/* ================================
+   SIGNUP SECTION (Below Login)
+================================ */
+.signup {
+  margin-top: 18px;             /* space above */
+  text-align: center;
+  font-size: 15px;
+  color: #ffffffd9;             /* soft white */
+  gap:90px;
+  font-weight: 500;             /* slightly bold text */
 }
-.moon {
-  position: absolute;
-  right: 10px; top: 4px;
-  opacity: 0.7;
+
+.signup a {
+  margin-left: 8px;             /* spacing between texts */
+  font-weight: 700;             /* make 'Create account' bold */
+  color: #4b7bec;       /*make bold        /* matching theme blue */
+  gap:20px;
+  text-decoration: none;
+  transition: 0.3s ease;
 }
 
-.dark .sun { opacity: 0.3; }
-.dark .moon { opacity: 1; }
+.signup a:hover {
+  color: #74b9ff;               /* light blue hover */
+  text-decoration: underline;   /* stylish underline on hover */
+}

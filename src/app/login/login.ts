@@ -9,9 +9,14 @@ import { Auth0Service } from '../auth/auth0';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
+  ],
   templateUrl: './login.html',
-  styleUrl: './login.css',
+  styleUrls: ['./login.css']
 })
 export class Login implements OnInit {
 
@@ -29,33 +34,33 @@ export class Login implements OnInit {
   ) {}
 
   // ---------------------------------------------------
-  // 🌙 DARK MODE: load preference on start
+  // 🌙 Load saved theme on app start
   // ---------------------------------------------------
   ngOnInit() {
     this.loadThemePreference();
   }
 
   toggleDarkMode() {
-    const body = document.body;
-    const isDark = body.classList.toggle('dark');
+    const isDark = document.body.classList.toggle('dark');
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }
 
   loadThemePreference() {
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const finalTheme = savedTheme ?? (prefersDark ? 'dark' : 'light');
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-    document.body.classList.toggle('dark', finalTheme === 'dark');
-    localStorage.setItem('theme', finalTheme);
+    const theme = saved ?? (prefersDark ? "dark" : "light");
+
+    document.body.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
   }
 
   // ---------------------------------------------------
-  // 🔐 API Login
+  // 🔐 Backend Login
   // ---------------------------------------------------
   onLogin() {
     if (!this.username || !this.password) {
-      this.message = 'Please enter username & password.';
+      this.message = "Please enter username & password.";
       return;
     }
 
@@ -69,16 +74,21 @@ export class Login implements OnInit {
         }
 
         this.apiAuth.setLoginState(this.username, token);
+
+        if (this.rememberMe) {
+          localStorage.setItem("rememberUser", this.username);
+        }
+
         this.router.navigate(['/']);
       },
       error: (err) => {
-        this.message = err.error?.message || 'Invalid username or password';
+        this.message = err.error?.message || "Invalid username or password";
       }
     });
   }
 
   // ---------------------------------------------------
-  // 🔐 API Logout
+  // 🔐 Logout API
   // ---------------------------------------------------
   onLogout() {
     const token = this.apiAuth.getToken();
@@ -93,9 +103,23 @@ export class Login implements OnInit {
   }
 
   // ---------------------------------------------------
-  // 🟦 Auth0 Login
+  // 🟦 Auth0
   // ---------------------------------------------------
   loginWithAuth0() {
     this.auth0.login();
+  }
+
+  // ---------------------------------------------------
+  // 🔵 Google Login (UI only, no backend yet)
+  // ---------------------------------------------------
+  loginWithGoogle() {
+    alert("Google login integration coming soon!");
+  }
+
+  // ---------------------------------------------------
+  // 🔵 Facebook Login (UI only)
+  // ---------------------------------------------------
+  loginWithFacebook() {
+    alert("Facebook login integration coming soon!");
   }
 }

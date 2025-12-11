@@ -1,4 +1,9 @@
-<!-- Dark Mode iOS Toggle Switch -->
+<!-- Background Image Wrapper -->
+<div class="bg-wrapper">
+  <img src="assets/images/1.jpg" class="bg-image" alt="Background">
+</div>
+
+<!-- Dark Mode Toggle -->
 <div class="toggle-switch" (click)="toggleDarkMode()">
   <div class="switch">
     <div class="ball"></div>
@@ -7,9 +12,7 @@
   </div>
 </div>
 
-<!-- Animated Background -->
-<div class="animated-bg"></div>
-
+<!-- LOGIN FORM -->
 <div class="login-container">
   <div class="login-card">
 
@@ -27,21 +30,16 @@
 
       <!-- Password -->
       <div class="input-group floating">
-        <input
-          [type]="showPassword ? 'text' : 'password'"
-          [(ngModel)]="password"
-          name="password"
-          required
-          placeholder=" "
-        />
+        <input [type]="showPassword ? 'text' : 'password'"
+               [(ngModel)]="password" name="password"
+               required placeholder=" " />
+
         <label>Password</label>
         <i class="fa fa-lock icon"></i>
 
-        <i
-          class="fa toggle-pass"
-          [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
-          (click)="showPassword = !showPassword"
-        ></i>
+        <i class="fa toggle-pass"
+           [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+           (click)="showPassword = !showPassword"></i>
       </div>
 
       <!-- Options -->
@@ -50,13 +48,11 @@
           <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" />
           Remember me
         </label>
-        <a class="forgot" routerLink="/forgot-password">Forgot Password?</a>
+        <a class="forgot">Forgot Password?</a>
       </div>
 
-      <!-- Login button -->
-      <button class="btn primary" [disabled]="!loginForm.valid">
-        Login
-      </button>
+      <!-- Login -->
+      <button class="btn primary" [disabled]="!loginForm.valid">Login</button>
 
       <!-- Signup -->
       <div class="signup">
@@ -64,22 +60,19 @@
         <a routerLink="/signup">Create account</a>
       </div>
 
-      <!-- Social Logins -->
-      <div class="social-buttons">
-        <button class="btn social google">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" />
-          Login with Google
-        </button>
+      <!-- Social Login Buttons -->
+      <button class="btn social google">
+        <img src="assets/images/icons/google.png" class="social-icon">
+        Login with Google
+      </button>
 
-        <button class="btn social facebook">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg" />
-          Login with Facebook
-        </button>
-      </div>
+      <button class="btn social facebook">
+        <img src="assets/images/icons/facebook.png" class="social-icon">
+        Login with Facebook
+      </button>
 
-      <!-- Auth0 -->
-      <button type="button" class="btn auth0" (click)="loginWithAuth0()">
-        <img src="https://cdn.auth0.com/styleguide/components/1.0.8/media/logos/img/badge.png" />
+      <button class="btn social auth0" (click)="loginWithAuth0()">
+        <img src="assets/images/icons/auth0.jpg" class="auth0-icon">
         Login with Auth0
       </button>
 

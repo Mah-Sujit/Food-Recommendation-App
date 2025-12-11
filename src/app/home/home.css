@@ -1,375 +1,282 @@
-/* ===============================
-   BRAND THEME
-================================= */
-:root {
-  --brand-primary: #ff4b3a;
-  --brand-primary-dark: #d63b2d;
-  --brand-accent: #ffb347;
-  --brand-bg-dark: #050816;
-  --brand-text-main: #111827;
-  --brand-text-muted: #6b7280;
-}
+/* =========================
+   GLOBAL
+========================= */
+* { box-sizing: border-box; }
 
-/* Make sure page has subtle dark bg behind content */
 .home-page {
-  background: #f5f5f7;
-  min-height: 100vh;
-}
-
-/* ===============================
-   HERO SECTION
-================================= */
-.hero-section {
-  position: relative;
-  height: 70vh;
-  min-height: 480px;
-  color: white;
-  overflow: hidden;
-  background: radial-gradient(circle at top left, #ffb34733, transparent 50%),
-              radial-gradient(circle at bottom right, #ff4b3a33, transparent 55%),
-              #050816;
-}
-
-/* Background photo overlay if you want:
-   (you can later move to your own asset)
-*/
-.hero-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url("https://images.unsplash.com/photo-1504674900247-0877df9cc836")
-              center/cover no-repeat;
-  opacity: 0.25;
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, rgba(5,8,22,0.9), rgba(5,8,22,0.8));
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-/* Left block */
-.hero-left {
-  flex: 1.1;
-}
-
-/* Brand badge */
-.brand-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(15, 23, 42, 0.8);
-  box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.3);
-  margin-bottom: 18px;
-}
-
-.brand-logo {
-  font-size: 1.4rem;
-}
-
-.brand-name {
-  font-weight: 600;
-  letter-spacing: 0.03em;
-}
-.brand-name span {
-  color: var(--brand-accent);
-}
-
-/* Hero title text */
-.hero-title {
-  font-size: 2.6rem;
-  font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 15px;
-}
-
-.hero-title span {
-  color: var(--brand-accent);
-}
-
-.hero-subtitle {
-  font-size: 1.05rem;
-  color: #e5e7eb;
-  max-width: 460px;
-  margin-bottom: 24px;
-}
-
-/* Hero search */
-.hero-search {
-  display: flex;
-  gap: 10px;
-  max-width: 520px;
-  margin-bottom: 18px;
-}
-
-.hero-search .search-input {
-  border-radius: 999px;
-  border: none;
-  padding: 10px 18px;
-  font-size: 1rem;
-}
-
-.hero-search .search-btn {
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 500;
-}
-
-/* Keyword tags */
-.hero-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-}
-
-.tag-pill {
-  padding: 5px 12px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  background: rgba(15, 23, 42, 0.85);
-  color: #e5e7eb;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-}
-
-/* Right side card */
-.hero-right {
-  flex: 0.9;
-  justify-content: flex-end;
-}
-
-.hero-card {
-  background: rgba(15, 23, 42, 0.9);
-  border-radius: 18px;
-  padding: 22px 24px;
-  color: #e5e7eb;
-  max-width: 320px;
-  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(148, 163, 184, 0.4);
-}
-
-.hero-card h5 {
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.stat-row {
-  display: flex;
-  justify-content: space-between;
-  margin: 14px 0 16px 0;
-}
-
-.stat-number {
-  font-size: 1.3rem;
-  font-weight: 700;
-}
-
-.stat-label {
-  font-size: 0.78rem;
-  color: #9ca3af;
-}
-
-.mini-chip {
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(37, 99, 235, 0.15);
-  font-size: 0.8rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Floating animation */
-.floating {
-  animation: floatCard 3.5s ease-in-out infinite alternate;
-}
-
-@keyframes floatCard {
-  from { transform: translateY(0px); }
-  to   { transform: translateY(-10px); }
-}
-
-
-/* ===============================
-   HOW IT WORKS
-================================= */
-.how-it-works-section {
-  margin-top: 60px;
-  margin-bottom: 60px;
+  font-family: "Poppins", sans-serif;
+  color: #333;
 }
 
 .section-title {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--brand-text-main);
+  text-align: center;
 }
 
 .section-title span {
-  color: var(--brand-primary);
+  color: #ff4d4d;
 }
 
 .section-subtitle {
-  color: var(--brand-text-muted);
-  font-size: 0.98rem;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #555;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero-section {
+  position: relative;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+.hero-bg img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  inset: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.brand-title span {
+  color: #ff4d4d;
+}
+
+.hero-heading {
+  font-size: 3rem;
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+.hero-heading span {
+  color: #ff8686;
+}
+
+.hero-text {
+  max-width: 500px;
+  opacity: 0.9;
+}
+
+/* Search */
+.hero-search {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.hero-search input {
+  padding: 12px;
+  width: 280px;
+  border-radius: 8px;
+  border: none;
+}
+
+.hero-search button {
+  background: #ff4d4d;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.hero-tags {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.hero-tags span {
+  background: rgba(255,255,255,0.2);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+/* Stats Card */
+.stats-card {
+  width: 260px;
+  background: #fff;
+  color: #333;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.stats-card h5 {
+  font-weight: 600;
+}
+
+.stats-card .sub {
+  color: #777;
+  font-size: 0.85rem;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.stats-row h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.chip {
+  background: #ffe8e8;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+/* =========================
+   FOOD GALLERY
+========================= */
+
+.food-gallery {
+  padding: 60px 0;
+}
+
+.food-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 260px;
+  cursor: pointer;
+}
+
+.food-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.4s ease;
+}
+
+.food-card:hover img {
+  transform: scale(1.06);
+}
+
+.food-card .label {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background: rgba(0,0,0,0.55);
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: #fff;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+
+.how-section {
+  padding: 60px 0;
 }
 
 .how-card {
-  padding: 28px;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+  padding: 25px;
+  background: #fff;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   transition: 0.3s ease;
 }
 
 .how-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.15);
+  transform: translateY(-6px);
 }
 
-.icon {
-  font-size: 2.4rem;
+.how-card .icon {
+  font-size: 2rem;
   margin-bottom: 10px;
 }
 
+/* =========================
+   TOP RATED SECTION
+========================= */
 
-/* ===============================
-   TOP RATED CARDS
-================================= */
-.top-rated-section {
-  margin-bottom: 60px;
+.top-rated {
+  padding: 60px 0;
 }
 
-.card-img-wrapper {
+.food-preview {
+  background: #fff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.food-preview .img-wrap {
   position: relative;
-  overflow: hidden;
-  border-radius: 18px 18px 0 0;
 }
 
-.card-img-wrapper img {
-  height: 190px;
+.food-preview img {
   width: 100%;
+  height: 200px;
+  border-radius: 10px;
   object-fit: cover;
-  transition: 0.5s ease;
 }
 
-.preview-card {
-  border-radius: 18px;
-  border: none;
-  overflow: hidden;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.15);
-  transition: 0.35s ease;
-  background: #ffffff;
-}
-
-.preview-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 22px 60px rgba(15, 23, 42, 0.22);
-}
-
-.preview-card:hover img {
-  transform: scale(1.06);
-}
-
-.rating-badge {
+.food-preview .rate {
   position: absolute;
-  left: 12px;
-  top: 12px;
-  background: rgba(17, 24, 39, 0.9);
-  color: #fbbf24;
-  padding: 4px 9px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+  top: 10px;
+  right: 10px;
+  background: #ff4d4d;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 20px;
 }
 
-.card-title {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--brand-text-main);
+.food-preview .loc {
+  color: #777;
 }
 
-.stars span {
-  color: #fbbf24;
-  font-size: 1rem;
-}
-
-
-/* ===============================
-   SCROLL ANIMATION
-================================= */
-
-.scroll-animate {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: 0.9s ease;
-}
-
-.animate-show {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-}
-
-
-/* ===============================
+/* =========================
    RESPONSIVE
-================================= */
+========================= */
 
-@media (max-width: 992px) {
-  .hero-content {
-    flex-direction: column;
-    justify-content: center;
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 60px 0;
     text-align: center;
   }
 
-  .hero-left {
-    margin-bottom: 24px;
-  }
-
-  .hero-search {
-    margin: 0 auto 16px auto;
-  }
-
-  .hero-card {
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero-title {
-    font-size: 2.1rem;
-  }
-
-  .hero-section {
-    height: auto;
-    padding: 40px 0 30px 0;
-  }
-
-  .hero-search {
+  .hero-inner {
     flex-direction: column;
   }
 
-  .hero-search .search-input {
-    width: 100%;
+  .hero-search {
+    justify-content: center;
   }
 
-  .hero-search .search-btn {
-    width: 100%;
-    justify-content: center;
+  .hero-right {
+    display: none;
   }
 }
