@@ -18,3 +18,5 @@ bootstrapApplication(AppComponent, {
     appConfig.providers
   ]
 }).catch((err) => console.error(err))
+
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';

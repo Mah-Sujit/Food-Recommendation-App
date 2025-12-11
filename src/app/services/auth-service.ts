@@ -41,14 +41,13 @@ export class AuthService {
 
     return this.http.post('http://127.0.0.1:5001/login',body, { headers });
   }
+logout(token: string) {
+  const headers = new HttpHeaders({
+    'x-access-token': token
+  });
 
-  logout(token: string) {
-    const headers = new HttpHeaders({
-      'x-access-token': token
-    });
-
-    return this.http.post('http://127.0.0.1:5001/logout',{}, { headers });
-  }
+  return this.http.post('http://127.0.0.1:5001/logout', {}, { headers });
+}
 
   
   // Save login state

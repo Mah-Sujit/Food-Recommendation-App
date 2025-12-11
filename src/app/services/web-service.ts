@@ -15,12 +15,12 @@ export class WebServices {
 
   constructor(private http: HttpClient) { }
 
-  getfoods(page: number){
-    return this.http.get<any>(
-      'http://127.0.0.1:5001/food/?pn=' +
-      page + '&ps=' + this.pageSize
-      );
-  }
+  getfoods(page: number, pageSize: number = 50) {
+  return this.http.get<any>(
+    `http://127.0.0.1:5001/food/?pn=${page}&ps=${pageSize}`
+  );
+}
+
   getfood(id: any) {
   return this.http.get<any>(`http://127.0.0.1:5001/food/${id}`);
 }

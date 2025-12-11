@@ -1,0 +1,4 @@
+.navbar {
+  overflow: visible !important;
+  z-index: 2000 !important;
+}

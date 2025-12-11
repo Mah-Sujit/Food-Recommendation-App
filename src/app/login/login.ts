@@ -54,18 +54,18 @@ console.log("PASSWORD:", this.password);
 });
   }
 
-
   onLogout() {
-     const token = this.authService.getToken();
-    if (!this.token) return;
+  const token = this.authService.getToken();
+  if (!token) return;
 
-    this.authService.logout(this.token).subscribe({
-      next: () => {
-        this.authService.clearLoginState();
-        this.token = null;
-        this.router.navigate(['/login']);
-      }
-    });
-  }
+  this.authService.logout(token).subscribe({
+    next: () => {
+      this.authService.clearLoginState();
+      this.router.navigate(['/login']);
+    }
+  });
+}
+
+
 
 }

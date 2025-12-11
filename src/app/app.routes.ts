@@ -62,8 +62,22 @@ export const routes: Routes = [
   path: 'admin',
   loadComponent: () =>
     import('./admin/admin').then(m => m.AdminComponent),
-  canActivate: [authGuard, adminGuard]
+  canActivate: [authGuard, adminGuard],
+
+  children: [
+    {
+      path: '',
+      redirectTo: 'foods',
+      pathMatch: 'full'
+    },
+   {
+  path: 'foods',
+  loadComponent: () =>
+    import('./admin/admin-food-list/admin-food-list.component')
+      .then(m => m.AdminFoodList)
 }
 
+  ]
 
+  }
 ];

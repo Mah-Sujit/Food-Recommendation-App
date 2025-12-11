@@ -1,0 +1,102 @@
+/* Dark page background */
+.admin-page {
+  background-image: url('/assets/images/admin-bg.jpg');
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-top: 90px;
+  background-color: red !important;
+  width: 100%;
+  min-height: 100vh;             /* full screen height */
+  padding-top: 100px;
+  color: #e6e6e6;
+}
+
+
+
+/* Dark table/card look */
+.card,
+table {
+  background: #2a2a3b !important;
+  color: #e6e6e6;
+  border: none;
+}
+
+.table thead.table-dark {
+  background: #3a3a4d !important;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #3b3b4a !important;
+}
+
+/* Input + Select dark mode */
+.admin-container .form-control,
+.admin-container .form-select {
+  background-color: #2a2a3b;
+  border: 1px solid #4a4a5a;
+  color: #e6e6e6;
+}
+
+.admin-container .form-control::placeholder {
+  color: #b5b5b5;
+}
+
+/* Buttons */
+.btn-primary {
+  background: #4c6ef5;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #3b5bdb;
+}
+
+.btn-outline-secondary {
+  border-color: #999;
+  color: #ddd;
+}
+
+.btn-outline-secondary:hover {
+  background: #444;
+}
+
+.btn-outline-danger {
+  border-color: #ff6b6b;
+  color: #ff8787;
+}
+
+.btn-outline-danger:hover {
+  background: #7c1f1f;
+}
+
+/* Modal dark mode */
+.modal-content {
+  background: #2a2a3b !important;
+  color: #fff !important;
+}
+
+.modal-header,
+.modal-footer {
+  border-color: #444 !important;
+}
+
+/* Nice title spacing */
+.admin-container h2 {
+  margin-bottom: 40px;
+  color:  #3b82f6 !important; 
+}
+
+/* Smooth transitions */
+button {
+  transition: 0.2s;
+}
+button:hover {
+  transform: scale(1.06);
+}
+
+/* Round card corners */
+.card {
+  border-radius: 10px;
+}
