@@ -1,87 +1,104 @@
-<div class="filters row mb-3 mt-4 px-3">
-  <!-- SEARCH BAR -->
-  <div class="col-md-4 mb-2">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Search by name, city or country..."
-      [(ngModel)]="searchQuery"
-      (input)="applyFilters()"
-    >
+<div class="foods-page">
+
+  <!-- =========================
+       PAGE TITLE
+  ========================== -->
+  <div class="title-section text-center mb-4">
+    <h2 class="page-title">🍽️ Explore Delicious Foods</h2>
+    <p class="page-subtitle">Browse, filter and discover top-rated restaurants</p>
   </div>
 
-  <!-- RATING FILTER -->
-  <div class="col-md-3 mb-2">
-    <select class="form-select" [(ngModel)]="minRating" (change)="applyFilters()">
-      <option [ngValue]="null">All ratings</option>
-      <option [ngValue]="5">5★ only</option>
-      <option [ngValue]="4">4★ and above</option>
-      <option [ngValue]="3">3★ and above</option>
-    </select>
-  </div>
+  <!-- =========================
+       FILTER BAR
+  ========================== -->
+  <div class="filters row mb-4 px-3">
 
-  <!-- SORTING -->
-  <div class="col-md-3 mb-2">
-    <select class="form-select" [(ngModel)]="sortBy" (change)="applyFilters()">
-      <option value="ratingDesc">Rating: High → Low</option>
-      <option value="ratingAsc">Rating: Low → High</option>
-      <option value="name">Name: A → Z</option>
-    </select>
-  </div>
-</div>
+    <!-- Search -->
+    <div class="col-md-4 mb-2">
+      <input
+        type="text"
+        class="form-control search-box"
+        placeholder="Search by name, city or country..."
+        [(ngModel)]="searchQuery"
+        (input)="applyFilters()"
+      >
+    </div>
 
+    <!-- Rating Filter -->
+    <div class="col-md-3 mb-2">
+      <select class="form-select filter-select" [(ngModel)]="minRating" (change)="applyFilters()">
+        <option [ngValue]="null">All Ratings</option>
+        <option [ngValue]="5">⭐⭐⭐⭐⭐ Only</option>
+        <option [ngValue]="4">⭐⭐⭐⭐ & Above</option>
+        <option [ngValue]="3">⭐⭐⭐ & Above</option>
+      </select>
+    </div>
 
-<!-- FOOD CARDS -->
-<div class="container mt-3">
-  <div class="row">
-
-    <div class="col-md-4 mb-4" *ngFor="let food of filteredFoods">
-      <div class="card shadow-sm p-2 food-card"
-           style="cursor: pointer;"
-           [routerLink]="['/food', food._id]">
-
-        <img
-          [src]="food.image || 'assets/images/restaurant-default.jpg'"
-          class="card-img-top"
-          style="height: 180px; object-fit: cover;"
-        >
-
-        <div class="card-body">
-          <h5 class="card-title">{{ food.name }}</h5>
-          <p class="text-muted small">{{ food.city }}, {{ food.country }}</p>
-
-          <!-- STAR RATING -->
-          <div class="stars mb-2">
-            <span *ngFor="let s of [].constructor(food.rating)">⭐</span>
-          </div>
-
-          <p>Popular in {{ food.city }}</p>
-        </div>
-
-        <div class="card-footer text-end">
-          View Details →
-        </div>
-
-      </div>
+    <!-- Sort -->
+    <div class="col-md-3 mb-2">
+      <select class="form-select filter-select" [(ngModel)]="sortBy" (change)="applyFilters()">
+        <option value="ratingDesc">Rating: High → Low</option>
+        <option value="ratingAsc">Rating: Low → High</option>
+        <option value="name">Name: A → Z</option>
+      </select>
     </div>
 
   </div>
-</div>
 
+  <!-- =========================
+       FOOD CARDS GRID
+  ========================== -->
+  <div class="container">
+    <div class="row">
 
-<!-- PAGINATION CONTROLS -->
-<div class="d-flex justify-content-between align-items-center mt-4 px-3">
-  <button class="btn btn-outline-secondary"
-          [disabled]="page === 1"
-          (click)="previousPage()">
-    ‹ Prev
-  </button>
+      <div class="col-md-4 mb-4 fade-in" *ngFor="let food of filteredFoods">
 
-  <span>Page {{ page }} / {{ totalPages }}</span>
+        <div class="food-card" [routerLink]="['/admin/foods/details', food._id]">
 
-  <button class="btn btn-outline-secondary"
-          [disabled]="page === totalPages"
-          (click)="nextPage()">
-    Next ›
-  </button>
+          <div class="img-wrapper">
+            <img 
+              [src]="food.image || 'assets/images/restaurant-default.jpg'"
+              class="food-img"
+            >
+
+            <span class="rating-badge">⭐ {{ food.rating }}</span>
+
+            <span class="popular-badge">🔥 Popular</span>
+          </div>
+
+          <div class="card-body">
+            <h4 class="food-title">{{ food.name }}</h4>
+
+            <p class="food-location">
+              <i class="bi bi-geo-alt-fill"></i>
+              {{ food.city }}, {{ food.country }}
+            </p>
+
+            <div class="stars mb-2">
+              <span *ngFor="let s of [].constructor(food.rating)">⭐</span>
+            </div>
+          </div>
+
+          <div class="view-footer">
+            View Details →
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- =========================
+       PAGINATION
+  ========================== -->
+  <div class="pagination-controls mt-4">
+    <button class="btn btn-outline-light" [disabled]="page === 1" (click)="previousPage()">‹ Prev</button>
+
+    <span class="page-number">Page {{ page }} / {{ totalPages }}</span>
+
+    <button class="btn btn-outline-light" [disabled]="page === totalPages" (click)="nextPage()">Next ›</button>
+  </div>
+
 </div>

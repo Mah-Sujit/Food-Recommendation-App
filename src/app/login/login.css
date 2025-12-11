@@ -1,64 +1,241 @@
-/* src/app/login/login.css */
-.login-box {
-    max-width: 320px;
-    margin: 24px auto;
-    padding: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+/********************************
+  ANIMATED BACKGROUND (AURORA)
+*********************************/
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(120deg, #4b7bec, #6c5ce7, #a29bfe, #0984e3);
+  background-size: 300% 300%;
+  animation: gradientMove 12s ease infinite;
+  z-index: -2;
 }
 
-.field {
-    margin-bottom: 10px;
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-.field label {
-    display: block;
-    margin-bottom: 4px;
+/********************************
+  GLASSMORPHISM CARD + LAYOUT
+*********************************/
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.field input {
-    width: 100%;
-    padding: 4px 6px;
-    box-sizing: border-box;
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+  animation: fadeUp 0.8s ease-out;
 }
 
-.buttons button {
-    margin-right: 8px;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px), scale(0.95); }
+  to { opacity: 1; transform: translateY(0), scale(1); }
 }
 
-.message {
-    margin-top: 10px;
-}
-/* FORGOT PASSWORD */
-.forgot-link {
-  text-align: right;
-  margin-top: -10px;
-  margin-bottom: 15px;
-}
-
-.forgot-link a {
-  text-decoration: none;
-  color: #007bff;
-  font-size: 0.9rem;
-}
-
-.forgot-link a:hover {
-  text-decoration: underline;
-}
-
-/* SIGNUP LINK */
-.login-footer {
+/********************************
+  TITLES
+*********************************/
+.title {
+  color: #fff;
   text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+}
+.subtitle {
+  text-align: center;
+  color: #eaeaea;
+  margin-bottom: 25px;
+}
+
+/********************************
+  FLOATING INPUTS + NEON GLOW
+*********************************/
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 45px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  transition: 0.25s ease;
+}
+
+.input-group input:focus {
+  border-color: #74b9ff;
+  box-shadow: 0 0 12px 2px rgba(116,185,255,0.9); /* NEON */
+}
+
+/* Floating label */
+.input-group label {
+  position: absolute;
+  left: 45px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ddd;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+  top: -7px;
+  left: 12px;
+  padding: 0 6px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 5px;
+  font-size: 12px;
+  color: #74b9ff;
+}
+
+/********************************
+  ICONS
+*********************************/
+.icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #eee;
+}
+
+.toggle-pass {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  color: #ccc;
+  cursor: pointer;
+}
+
+/********************************
+  OPTIONS ROW
+*********************************/
+.options-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+/********************************
+  NEON GLOW LOGIN BUTTON
+*********************************/
+.btn.primary {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: white;
+  background: #4b7bec;
+  transition: 0.3s ease;
+}
+
+.btn.primary:hover {
+  box-shadow: 0 0 18px #4b7bec, 0 0 30px rgba(75,123,236,0.6); /* NEON */
+  transform: translateY(-2px);
+}
+
+/********************************
+  SOCIAL BUTTONS
+*********************************/
+.social-buttons {
   margin-top: 20px;
-  font-size: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.login-footer a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 500;
+.btn.social {
+  width: 40%;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-.login-footer a:hover {
-  text-decoration: underline;
+/********************************
+  AUTH0 BUTTON
+*********************************/
+.btn.auth0 {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background: #eb5424;
+  color: white;
+  border-radius: 10px;
 }
+
+/********************************
+  ERROR MESSAGE
+*********************************/
+.message {
+  margin-top: 12px;
+  text-align: center;
+  color: #ff7675;
+}
+
+/********************************
+  TOGGLE SWITCH (iOS)
+*********************************/
+.toggle-switch {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.switch {
+  width: 62px;
+  height: 30px;
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(6px);
+  border-radius: 20px;
+  position: relative;
+}
+
+.switch .ball {
+  width: 26px;
+  height: 26px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  transition: transform 0.3s ease;
+}
+
+.dark .switch .ball {
+  transform: translateX(32px);
+}
+
+.sun {
+  position: absolute;
+  left: 10px; top: 4px;
+}
+.moon {
+  position: absolute;
+  right: 10px; top: 4px;
+  opacity: 0.7;
+}
+
+.dark .sun { opacity: 0.3; }
+.dark .moon { opacity: 1; }

@@ -1,63 +1,73 @@
-<div class="contact-page">
-  <div class="contact-card">
+<!-- FULLSCREEN MOMO BACKGROUND -->
+<div class="momo-background">
+  <img src="assets/images/momo.jpg" alt="Momo Background" class="momo-full-bg">
+</div>
 
-    <h2 class="contact-title">Get in touch with us</h2>
-    <p class="contact-subtitle">
-      Looking for support? Visit our Help Centre.
-    </p>
+<!-- FLOATING STEAM EFFECT -->
+<div class="steam-container">
+  <div class="steam s1"></div>
+  <div class="steam s2"></div>
+  <div class="steam s3"></div>
+</div>
+
+<!-- INTERACTIVE FLOATING PARTICLES -->
+<div class="particles-container">
+  <div class="particle" *ngFor="let p of particles"></div>
+</div>
+
+<!-- CONTACT FORM OVERLAY -->
+<div class="contact-overlay">
+  <div class="contact-card animate">
+
+    <h2 class="contact-title">Get in touch</h2>
+    <p class="contact-subtitle">We’d love to hear from you.</p>
 
     <form (ngSubmit)="submitForm()">
 
       <div class="form-grid">
 
         <input type="text" placeholder="First name" [(ngModel)]="form.firstName" name="firstName">
-        <input type="text" placeholder="Surname" [(ngModel)]="form.lastName" name="lastName">
+        <input type="text" placeholder="Last name" [(ngModel)]="form.lastName" name="lastName">
 
-        <input type="email" class="form-full" placeholder="Work email" [(ngModel)]="form.email" name="email">
+        <input class="form-full" type="email" placeholder="Email address" [(ngModel)]="form.email" name="email">
 
         <input type="tel" placeholder="Phone number" [(ngModel)]="form.phone" name="phone">
         <input type="text" placeholder="Company name" [(ngModel)]="form.company" name="company">
 
         <select [(ngModel)]="form.country" name="country">
-          <option value="">Country</option>
-          <option>United Kingdom</option>
+          <option value="">Select country</option>
           <option>United States</option>
+          <option>United Kingdom</option>
           <option>India</option>
         </select>
 
         <select [(ngModel)]="form.industry" name="industry">
           <option value="">Industry</option>
-          <option>Technology</option>
+          <option>Tech</option>
           <option>Food & Beverage</option>
           <option>Retail</option>
         </select>
 
-        <select class="form-full" [(ngModel)]="form.employees" name="employees">
-          <option value="">Number of employees</option>
-          <option>1–20</option>
-          <option>21–250</option>
-          <option>250+</option>
-        </select>
-
-        <select class="form-full" [(ngModel)]="form.usage" name="usage">
-          <option value="">Usage case</option>
-          <option>Business travel</option>
-          <option>Meal delivery</option>
-          <option>Commute</option>
-        </select>
-
-        <textarea class="form-full" placeholder="How can we help?"
+        <textarea class="form-full" rows="4" placeholder="Your message"
           [(ngModel)]="form.message" name="message"></textarea>
 
       </div>
 
-      <button type="submit" class="submit-btn">Submit</button>
-
+      <button class="submit-btn bounce" type="submit">Send Message</button>
     </form>
-
-    <p class="policy-text">
-      By tapping Submit, you agree to our Terms and Conditions and Privacy Policy.
-    </p>
-
   </div>
+
+  <!-- SweetAlert Popup -->
+  <div class="alert-overlay" *ngIf="alertVisible">
+    <div class="alert-modal" [class.success]="alertSuccess">
+      <img *ngIf="alertSuccess" src="assets/alerts/success.gif" class="alert-gif">
+      <img *ngIf="!alertSuccess" src="assets/alerts/error.gif" class="alert-gif">
+
+      <h3 class="alert-title">{{ alertSuccess ? "Success!" : "Oops!" }}</h3>
+      <p class="alert-message">{{ alertMessage }}</p>
+
+      <button *ngIf="!alertSuccess" class="alert-button" (click)="closeAlert()">OK</button>
+    </div>
+  </div>
+
 </div>

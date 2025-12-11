@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth-service';
+import { ApiAuthService } from '../services/auth-service';
 
 export function adminGuard() {
-  const auth = inject(AuthService);
+  const auth = inject(ApiAuthService);
   const router = inject(Router);
 
   if (!auth.isLoggedIn() || !auth.isAdmin()) {

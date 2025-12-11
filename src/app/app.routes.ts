@@ -7,10 +7,13 @@ import { Login } from './login/login';
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
 import { adminGuard } from './guards/admin.guard';
-
+import { CallbackComponent } from './auth/callback/callback';
 export const routes: Routes = [
 
   // Home page (public)
+  {
+    path: 'Foods',
+    component: Foods},
   {
     path: '',
     component: Home
@@ -41,7 +44,7 @@ export const routes: Routes = [
   {
     path: 'contact',
     loadComponent: () =>
-      import('./contact/contact').then(m => m.Contact)
+      import('./contact/contact').then(m => m.ContactComponent)
   },
 
   // Login page (only for guests)
@@ -97,6 +100,9 @@ export const routes: Routes = [
   loadComponent: () => import('./clients/clients')
     .then(m => m.ClientsComponent),
   canActivate: [authGuard] // optional
-}
-
+},
+{
+    path: 'callback',
+    component: CallbackComponent
+  },
 ];

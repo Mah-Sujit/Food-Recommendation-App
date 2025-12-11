@@ -45,7 +45,7 @@ export class Foods implements OnInit {
 
   /** LOAD FULL LIST OF FOODS **/
  loadFoodsFromApi() {
-  this.webService.getfoods(1, 200).subscribe((res: any) => {
+  this.webService.getfoods(1, 6).subscribe((res: any) => {
     console.log("RAW FOODS", res.items);
     this.allFoods = (res.items || []).map((item: any) => {
   return {

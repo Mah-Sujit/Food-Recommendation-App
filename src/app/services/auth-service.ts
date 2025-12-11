@@ -5,7 +5,9 @@ import { Observable, BehaviorSubject } from "rxjs";
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class ApiAuthService {
+  private baseUrl = "http://localhost:5000";
+
   private apiUrl = 'http://127.0.0.1:5001/login';
   isLoggedIn$ = new BehaviorSubject<boolean>(false);
   currentUser$ = new BehaviorSubject<string | null>(null);
@@ -41,6 +43,12 @@ export class AuthService {
 
     return this.http.post('http://127.0.0.1:5001/login',body, { headers });
   }
+// SIGNUP   <-- THIS FIXES YOUR ERROR
+  // ==========================
+  signup(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/signup`, data);
+  }
+
 logout(token: string) {
   const headers = new HttpHeaders({
     'x-access-token': token
@@ -128,4 +136,5 @@ forceLogout() {
 
     window.location.href = '/login';
   }
+  
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { AuthService } from '../services/auth-service';
+import { ApiAuthService } from '../services/auth-service';
 import { WebServices } from '../services/web-service';
 
 @Component({
@@ -26,7 +26,7 @@ export class ClientComponent implements OnInit {
   loading = true;
 
   constructor(
-    public auth: AuthService,
+    public auth: ApiAuthService,
     private router: Router,
     private web: WebServices
   ) {}

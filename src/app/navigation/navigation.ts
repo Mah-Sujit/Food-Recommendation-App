@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../services/auth-service';
+import { ApiAuthService } from '../services/auth-service';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
@@ -19,9 +19,9 @@ export class Navigation {
 currentUser$!: BehaviorSubject<string | null>;
 
 
-  constructor(private authService: AuthService,
+  constructor(private authService: ApiAuthService,
     private router: Router,
-     public auth: AuthService,
+     public auth: ApiAuthService,
 ) { }
 
   ngOnInit(): void {

@@ -1,71 +1,101 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../services/auth-service';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+
+import { ApiAuthService } from '../services/auth-service';
+import { Auth0Service } from '../auth/auth0';
 
 @Component({
   selector: 'app-login',
-  standalone: true,     // <--  REQUIRED FOR ROUTING
-  imports: [CommonModule, ReactiveFormsModule, FormsModule,RouterModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class Login {
+export class Login implements OnInit {
 
   username: string = '';
   password: string = '';
+  rememberMe: boolean = false;
+  showPassword: boolean = false;
 
   message: string = '';
-  token: string | null = null;
 
-  constructor(private authService: AuthService,
-    private router: Router) { }
+  constructor(
+    private apiAuth: ApiAuthService,
+    private router: Router,
+    public auth0: Auth0Service
+  ) {}
 
+  // ---------------------------------------------------
+  // 🌙 DARK MODE: load preference on start
+  // ---------------------------------------------------
+  ngOnInit() {
+    this.loadThemePreference();
+  }
+
+  toggleDarkMode() {
+    const body = document.body;
+    const isDark = body.classList.toggle('dark');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  }
+
+  loadThemePreference() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const finalTheme = savedTheme ?? (prefersDark ? 'dark' : 'light');
+
+    document.body.classList.toggle('dark', finalTheme === 'dark');
+    localStorage.setItem('theme', finalTheme);
+  }
+
+  // ---------------------------------------------------
+  // 🔐 API Login
+  // ---------------------------------------------------
   onLogin() {
-    console.log("USERNAME:", this.username);
-console.log("PASSWORD:", this.password);
-
-
     if (!this.username || !this.password) {
       this.message = 'Please enter username & password.';
       return;
     }
 
-    console.log("Login clicked"); 
-    this.authService.login(this.username, this.password).subscribe({
-  next: (res) => {
-    console.log("LOGIN RESPONSE:", res);
+    this.apiAuth.login(this.username, this.password).subscribe({
+      next: (res) => {
+        const token = res.token || res.Token || res.jwt;
 
-    const token = res.Token || res.token || res.jwt; // try all possible keys
+        if (!token) {
+          this.message = "No token received";
+          return;
+        }
 
-    if (!token) {
-      this.message = "No token received from backend";
-      return;
-    }
-
-    this.authService.setLoginState(this.username, token);
-    this.message = "Login successful!";
-    this.router.navigate(['/']);
-  },
-  error: (err) => {
-    this.message = err.error?.message || 'Login error';
-  }
-});
+        this.apiAuth.setLoginState(this.username, token);
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.message = err.error?.message || 'Invalid username or password';
+      }
+    });
   }
 
+  // ---------------------------------------------------
+  // 🔐 API Logout
+  // ---------------------------------------------------
   onLogout() {
-  const token = this.authService.getToken();
-  if (!token) return;
+    const token = this.apiAuth.getToken();
+    if (!token) return;
 
-  this.authService.logout(token).subscribe({
-    next: () => {
-      this.authService.clearLoginState();
-      this.router.navigate(['/login']);
-    }
-  });
-}
+    this.apiAuth.logout(token).subscribe({
+      next: () => {
+        this.apiAuth.clearLoginState();
+        this.router.navigate(['/login']);
+      }
+    });
+  }
 
-
-
+  // ---------------------------------------------------
+  // 🟦 Auth0 Login
+  // ---------------------------------------------------
+  loginWithAuth0() {
+    this.auth0.login();
+  }
 }
