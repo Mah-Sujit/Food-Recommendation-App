@@ -61,11 +61,10 @@ export class FoodData {
         })
       }
 
-  getFoods(page: number) {
-    let pageStart = (page - 1) * this.pageSize;
-    let pageEnd = pageStart + this.pageSize; 
-    return jsonData.slice(pageStart,pageEnd);
-  }
+ getFoods(page: number): Observable<any> {
+  return this.http.get<any>(`http://127.0.0.1:5001/food?pn=${page}&ps=${this.pageSize}`);
+}
+
   
   getLastPageNumber(){
     return Math.ceil(jsonData.length / this.pageSize);

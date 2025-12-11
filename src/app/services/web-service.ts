@@ -32,21 +32,20 @@ export class WebServices {
       + 'loremipsum?paragraphs=' + paragraphs,{headers:{'X-Api-key': API_key}}
     )
   }
+  getUserReviews(id: string) {
+  return this.http.get<any>(`http://127.0.0.1:5001/food/${id}/reviews`);
+}
 
-  getReviews(id: any){
-    return this.http.get<any>(
-      `http://127.0.0.1:5001/food/${id}/reviews`);
-  }
+postReview(id: string, review: any) {
+  let formData = new FormData();
+  formData.append("username", review.username);
+  formData.append("comment", review.comment);
+  formData.append("stars", review.stars);
 
-  postReview(id: any, review: any){
-    let postData = new FormData();
-    postData.append("username", review.username);
-    postData.append("comment", review.comment);
-    postData.append("stars", review.stars);
-
-    return this.http.post<any>(
-        `http://127.0.0.1:5001/food/${id}/reviews`,
-        postData);
+  return this.http.post(
+    `http://127.0.0.1:5001/food/${id}/reviews`,
+    formData
+  );
 }
 
 // Create new food
@@ -63,4 +62,17 @@ export class WebServices {
   deleteFood(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+getUserFavourites(username: string) {
+  return this.http.get<any>(`http://127.0.0.1:5001/user/${username}/favourites`);
+}
+
+addReview(data: any) {
+  return this.http.post(`http://127.0.0.1:5001/reviews`, data);
+}
+
+addFavourite(username: string, foodId: string) {
+  return this.http.post(`http://127.0.0.1:5001/user/${username}/favourites`, { foodId });
+}
+
 }

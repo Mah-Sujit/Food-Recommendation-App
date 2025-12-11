@@ -16,6 +16,7 @@ export interface Food {
   image?: string;
   lat?: number;
   lng?: number;
+  loadReviews:any;
 }
 
 
@@ -111,18 +112,32 @@ export class Food {
   }
 
   // Submit review
-  onSubmit() {
-    const id = this.route.snapshot.paramMap.get('id');
-
-    this.webService.postReview(id, this.reviewForm.value).subscribe(() => {
-      this.reviewForm.reset();
-
-      // Refresh food to reload reviews
-      this.webService.getfood(id).subscribe((food: any) => {
-        this.reviews_list = food.CustomerReviews;
-      });
-    });
+onSubmit() {
+  if (this.reviewForm.invalid) {
+    this.reviewForm.markAllAsTouched();
+    return;
   }
+
+  const id = this.route.snapshot.paramMap.get('id');
+  if (!id) {
+    console.error(" Food ID is null");
+    return;
+  }
+
+  // FIX: create payload with correct field names
+  const payload = {
+    username: this.reviewForm.value.username,
+    comment: this.reviewForm.value.comment,
+    star: this.reviewForm.value.stars
+  };
+
+  this.webService.postReview(id, payload).subscribe(() => {
+    this.reviewForm.reset({ stars: 5 });
+
+    this.loadReviews(id);
+  });
+}
+
 
   isInvalid(control: string) {
     return (

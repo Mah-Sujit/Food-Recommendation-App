@@ -1,0 +1,14 @@
+<div class="container mt-4">
+  <h2>Update Profile</h2>
+
+  <label>Username</label>
+  <input class="form-control mb-2" [(ngModel)]="user.username">
+
+  <label>Email</label>
+  <input class="form-control mb-2" [(ngModel)]="user.email">
+
+  <label>Password</label>
+  <input type="password" class="form-control mb-3" [(ngModel)]="user.password">
+
+  <button class="btn btn-primary" (click)="save()">Save</button>
+</div>

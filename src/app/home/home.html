@@ -44,6 +44,11 @@
           <span class="tag-pill">🌍 Nearby</span>
         </div>
       </div>
+      <div *ngIf="auth.isLoggedIn()" class="text-center mt-4">
+      <a routerLink="/client" class="btn btn-outline-light px-4">
+        Go to Client Dashboard
+      </a>
+    </div>
 
       <!-- Right: Hero Illustration / Stats -->
       <div class="hero-right d-none d-md-flex">

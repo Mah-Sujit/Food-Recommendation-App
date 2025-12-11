@@ -50,11 +50,15 @@ export class AdminComponent implements OnInit {
   }
 
   // CLOSE MODAL
-  closeModal() {
-    const modal = document.getElementById('foodModal');
-    const m = bootstrap.Modal.getInstance(modal!);
-    m?.hide();
-  }
+ closeModal() {
+  // Move focus to body FIRST
+  (document.activeElement as HTMLElement)?.blur();
+
+  const modal = document.getElementById('foodModal');
+  const instance = bootstrap.Modal.getInstance(modal!);
+  instance?.hide();
+}
+
 
   // ADD FOOD
   openAddForm() {

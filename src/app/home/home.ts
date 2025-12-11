@@ -5,6 +5,7 @@ import { Footer } from '../footer/footer';
 import { CommonModule } from '@angular/common';
 import { Food } from '../foods/food/food';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth-service';  
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,8 @@ export class Home implements OnInit {
 
 
   constructor(private foodData: FoodData,
-     private router: Router
+     private router: Router,
+     public auth: AuthService
 
   ) {}
 

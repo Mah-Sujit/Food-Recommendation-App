@@ -79,5 +79,24 @@ export const routes: Routes = [
 
   ]
 
-  }
+  },
+
+  {
+  path: 'client',
+  loadComponent: () => import('./client/client').then(m => m.ClientComponent),
+  canActivate: [authGuard]  // only logged users
+},
+{
+  path: 'client/form',
+  loadComponent: () => import('./clientforms/client-form/client-form')
+    .then(m => m.ClientFormComponent),
+  canActivate: [authGuard]
+},
+{
+  path: 'clients',
+  loadComponent: () => import('./clients/clients')
+    .then(m => m.ClientsComponent),
+  canActivate: [authGuard] // optional
+}
+
 ];

@@ -1,0 +1,163 @@
+<div class="client-page">
+
+  <div class="container py-5">
+
+    <!-- HEADER -->
+    <div class="mb-4 text-center">
+      <h2 class="fw-bold welcome-title">
+        👋 Welcome, {{ username }}
+      </h2>
+      <p class="text-muted small">
+        Manage your profile, reviews and favourite restaurants in one place.
+      </p>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="row g-4">
+
+      <!-- PROFILE CARD -->
+      <div class="col-lg-4">
+        <div class="card profile-card shadow-sm">
+          <div class="card-body text-center">
+            <div class="avatar mb-3">
+              <span>{{ (username || 'U')[0] | uppercase }}</span>
+            </div>
+
+            <h4 class="mb-1">{{ username }}</h4>
+            <p class="text-muted mb-3">
+              <span class="badge bg-secondary">User</span>
+              <span *ngIf="auth.isAdmin()" class="badge bg-warning text-dark ms-1">
+                Admin
+              </span>
+            </p>
+
+            <div class="d-flex justify-content-around stats-row mb-3">
+              <div>
+                <div class="stat-label">Reviews</div>
+                <div class="stat-number">{{ totalReviews }}</div>
+              </div>
+              <div>
+                <div class="stat-label">Avg Rating</div>
+                <div class="stat-number">
+                  {{ avgRating || 0 }}
+                </div>
+              </div>
+            </div>
+
+            <button class="btn btn-primary w-100" (click)="editProfile()">
+              Edit Profile
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUICK ACTIONS + RECENT REVIEWS -->
+      <div class="col-lg-8">
+
+        <!-- QUICK ACTIONS -->
+        <div class="card shadow-sm mb-4 quick-actions-card">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Quick Actions</h5>
+
+            <div class="row g-3">
+              <div class="col-md-4">
+                <button class="quick-action-btn w-100" (click)="goBrowseFoods()">
+                  <div class="qa-icon">🔍</div>
+                  <div class="qa-label">Browse Foods</div>
+                  <div class="qa-desc">Find restaurants & dishes</div>
+                </button>
+              </div>
+
+              <div class="col-md-4">
+                <button class="quick-action-btn w-100" (click)="goMyReviews()">
+                  <div class="qa-icon">💬</div>
+                  <div class="qa-label">My Reviews</div>
+                  <div class="qa-desc">See your ratings & comments</div>
+                </button>
+              </div>
+
+              <div class="col-md-4">
+                <button class="quick-action-btn w-100" (click)="goFavourites()">
+                  <div class="qa-icon">❤️</div>
+                  <div class="qa-label">Favourites</div>
+                  <div class="qa-desc">Saved restaurants</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECENT REVIEWS -->
+        <div class="card shadow-sm recent-card">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 class="card-title mb-0">Recent Reviews</h5>
+              <button class="btn btn-sm btn-outline-primary" (click)="writeReview()">
+                Write a Review
+              </button>
+            </div>
+
+            <ng-container *ngIf="recentReviews.length > 0; else noReviews">
+              <div *ngFor="let r of recentReviews" class="review-item">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <strong>{{ r.foodName }}</strong>
+                    <span class="ms-2 text-warning">
+                      <ng-container *ngFor="let s of [].constructor(r.rating)">
+                        ⭐
+                      </ng-container>
+                    </span>
+                  </div>
+                  <span class="text-muted small">
+                    {{ r.createdAt | date:'mediumDate' }}
+                  </span>
+                </div>
+                <p class="mb-1 text-muted small">
+                  {{ r.comment }}
+                </p>
+              </div>
+            </ng-container>
+
+            <ng-template #noReviews>
+              <p class="text-muted mb-0">
+                You haven’t written any reviews yet. Start by browsing foods and leaving your first rating!
+              </p>
+            </ng-template>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FAVOURITES SECTION -->
+    <div class="mt-5" id="favourites-section">
+      <h4 class="fw-bold mb-3">❤️ Favourite Restaurants</h4>
+
+      <div class="row g-4" *ngIf="favourites.length > 0; else noFavs">
+        <div class="col-md-4" *ngFor="let fav of favourites">
+          <div class="card fav-card shadow-sm" (click)="openFoodDetails(fav)">
+            <div class="card-body">
+              <h5 class="card-title mb-1">{{ fav.name }}</h5>
+              <p class="text-muted mb-1">
+                {{ fav.city }}, {{ fav.country }}
+              </p>
+              <div class="text-warning small">
+                <ng-container *ngFor="let s of [].constructor(fav.rating)">
+                  ⭐
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noFavs>
+        <p class="text-muted">
+          You haven’t added any favourites yet. Browse foods and mark some as favourites in the future.
+        </p>
+      </ng-template>
+    </div>
+
+  </div>
+</div>

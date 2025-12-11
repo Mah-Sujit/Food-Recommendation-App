@@ -39,8 +39,23 @@
 
       <!-- RIGHT SIDE (LOGGED IN) -->
       <!-- RIGHT SIDE (LOGGED IN) -->
-       <ul class="navbar-nav ms-auto" *ngIf="auth.isLoggedIn$ | async">
+      <ul class="navbar-nav ms-auto" *ngIf="auth.isLoggedIn$ | async">
 
+  <!-- Client Dashboard Icon/Button -->
+  <li class="nav-item" *ngIf="auth.isLoggedIn()">
+  <a class="nav-link" routerLink="/client">
+    <i class="bi bi-person-circle"></i> Dashboard
+  </a>
+</li>
+
+  <!-- Admin sees Admin Panel instead -->
+  <li class="nav-item" *ngIf="auth.isAdmin()"> 
+    <a class="nav-link text-warning" routerLink="/admin">
+      <i class="bi bi-speedometer2"></i> Admin Panel
+    </a>
+  </li>
+
+  <!-- Dropdown with username + logout -->
   <li class="nav-item dropdown">
     <a 
       class="nav-link dropdown-toggle"
@@ -48,22 +63,20 @@
       id="userDropdown"
       role="button"
       data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
+      aria-expanded="false">
+
       {{ auth.currentUser$ | async }}
+
     </a>
 
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-      <li *ngIf="auth.isAdmin()">
-        <a class="dropdown-item" routerLink="/admin">Admin Panel</a>
-      </li>
-      <li>
-        <a class="dropdown-item" (click)="onLogout()">Logout</a>
-      </li>
+      <li><a class="dropdown-item" (click)="onLogout()">Logout</a></li>
     </ul>
   </li>
 
 </ul>
+
+
 
 
 
